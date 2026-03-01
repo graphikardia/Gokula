@@ -15,7 +15,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="mailto:cmrgokula2000@gmail.com"
+                href="mailto:graphikardia@gmail.com"
                 className="text-white/40 hover:text-[#00F5D4] transition-colors"
                 aria-label="Email"
               >
@@ -70,7 +70,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-white/60">
               <li><a href="tel:+917975594203" className="hover:text-[#00F5D4] transition-colors">+91 7975594203</a></li>
-              <li><a href="mailto:cmrgokula2000@gmail.com" className="hover:text-[#00F5D4] transition-colors">cmrgokula2000@gmail.com</a></li>
+              <li><a href="mailto:graphikardia@gmail.com" className="hover:text-[#00F5D4] transition-colors">graphikardia@gmail.com</a></li>
               <li>Bengaluru, Karnataka</li>
             </ul>
           </div>

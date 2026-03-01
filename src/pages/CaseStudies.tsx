@@ -211,7 +211,7 @@ export default function CaseStudies() {
             Let's discuss how we can elevate your brand with strategic digital marketing and compelling content.
           </p>
           <a
-            href="mailto:cmrgokula2000@gmail.com"
+            href="mailto:graphikardia@gmail.com"
             className="inline-block px-8 py-4 bg-[#00F5D4] text-black font-bold rounded-full hover:scale-105 transition-transform"
           >
             Get in Touch

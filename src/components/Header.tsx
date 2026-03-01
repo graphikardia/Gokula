@@ -14,7 +14,7 @@ export default function Header() {
           <Link to="/videos" className="hover:text-[#00F5D4] transition-colors">Videos</Link>
           <Link to="/services" className="hover:text-[#00F5D4] transition-colors">Services</Link>
           <motion.a
-            href="mailto:cmrgokula2000@gmail.com"
+            href="mailto:graphikardia@gmail.com"
             whileHover={{ scale: 1.05 }}
             className="px-4 py-2 bg-[#00F5D4] text-black font-medium rounded-full text-sm"
           >

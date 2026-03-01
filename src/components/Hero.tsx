@@ -59,7 +59,7 @@ export default function Hero() {
             View My Work
           </Link>
           <a
-            href="mailto:cmrgokula2000@gmail.com"
+            href="mailto:graphikardia@gmail.com"
             className="px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/10 transition-colors"
           >
             Get in Touch
@@ -73,7 +73,7 @@ export default function Hero() {
           className="flex justify-center gap-6 mt-8"
         >
           <a
-            href="mailto:cmrgokula2000@gmail.com"
+            href="mailto:graphikardia@gmail.com"
             className="text-white/40 hover:text-[#00F5D4] transition-colors"
             aria-label="Email"
           >

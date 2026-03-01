@@ -1,7 +1,52 @@
 import { motion } from "framer-motion"
-import { useRef } from "react"
+import { useEffect, useState } from "react"
 import WebGLParticles from "../components/WebGLParticles"
 import { Link } from "react-router-dom"
+
+const roles = [
+  { title: "Digital Marketer", desc: "Strategic campaigns that drive results", skills: ["Meta Ads", "Google Ads", "SEO"] },
+  { title: "Video Editor", desc: "Compelling visual storytelling", skills: ["Reels", "Promos", "Edits"] },
+  { title: "Brand Strategist", desc: "Building memorable brand identities", skills: ["Identity", "Positioning", "Growth"] },
+  { title: "Creative Director", desc: "Turning ideas into impactful content", skills: ["Concepts", "Direction", "Production"] },
+  { title: "Social Media Manager", desc: "Growing engaged communities", skills: ["Content", "Engagement", "Analytics"] },
+  { title: "Graphic Designer", desc: "Visual designs that captivate", skills: ["Logos", "Branding", "UI/UX"] },
+]
+
+function FlippingRoles() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % roles.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="min-h-[140px] flex flex-col items-center justify-center">
+      <motion.div
+        key={currentIndex}
+        initial={{ opacity: 0, y: 20, rotateX: -90 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0 }}
+        exit={{ opacity: 0, y: -20, rotateX: 90 }}
+        transition={{ duration: 0.5 }}
+        className="text-center"
+      >
+        <h2 className="text-3xl md:text-5xl font-bold text-[#00F5D4] mb-2">
+          {roles[currentIndex].title}
+        </h2>
+        <p className="text-white/60 text-lg mb-4">{roles[currentIndex].desc}</p>
+        <div className="flex flex-wrap justify-center gap-2">
+          {roles[currentIndex].skills.map((skill, i) => (
+            <span key={i} className="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/20">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  )
+}
 
 const skills = [
   { name: "Meta Ads", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z", color: "#0081FB" },
@@ -74,13 +119,13 @@ const awards = [
   "NCC 'C' Certificate Holder"
 ]
 
-function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={className}
     >
       {children}
@@ -99,71 +144,66 @@ function Hero() {
           transition={{ delay: 0.2 }}
           className="text-[#00F5D4] uppercase tracking-[0.3em] text-sm"
         >
-          Creative Lead & Digital Marketing Expert
+          Welcome to My Portfolio
         </motion.span>
         
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-5xl md:text-7xl font-bold mt-6 mb-6"
+          className="text-5xl md:text-7xl font-bold mt-6 mb-2"
         >
-          Hi, I'm <span className="text-[#00F5D4]">Geetha</span>
+          My Name is <span className="text-[#00F5D4]">Gokula</span>
         </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mb-8"
+        >
+          <FlippingRoles />
+        </motion.div>
         
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="text-xl text-white/60 max-w-2xl mx-auto mb-8"
+          transition={{ delay: 0.6 }}
+          className="text-lg text-white/60 max-w-xl mx-auto mb-8"
         >
-          Founder of <span className="text-[#00F5D4]">Graphikardia</span> - A Digital Marketing Agency.
-          Specializing in video production, social media management, and strategic brand growth.
+          <span className="text-[#00F5D4]">Graphikardia</span> — A Digital Marketing Agency
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          transition={{ delay: 0.7 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
         >
-          {skills.slice(0, 4).map((skill, i) => (
-            <span key={i} className="px-4 py-2 bg-white/5 rounded-full text-sm border border-white/10 flex items-center gap-2">
-              <svg className="w-4 h-4" fill={skill.color} viewBox="0 0 24 24">
-                <path d={skill.icon} />
-              </svg>
-              {skill.name}
-            </span>
-          ))}
-        </motion.div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
+          <a
+            href="mailto:graphikardia@gmail.com"
+            className="px-6 py-3 bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-colors flex items-center gap-2"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            graphikardia@gmail.com
+          </a>
           <Link
             to="/case-studies"
-            className="px-8 py-4 bg-[#00F5D4] text-black font-bold rounded-full hover:scale-105 transition-transform"
+            className="px-8 py-3 bg-[#00F5D4] text-black font-bold rounded-full hover:scale-105 transition-transform"
           >
             View My Work
           </Link>
-          <a
-            href="mailto:cmrgokula2000@gmail.com"
-            className="px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/10 transition-colors"
-          >
-            Get in Touch
-          </a>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.9 }}
           className="flex justify-center gap-6 mt-8"
         >
-          <a href="mailto:cmrgokula2000@gmail.com" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+          <a href="mailto:graphikardia@gmail.com" className="text-white/40 hover:text-[#00F5D4] transition-colors">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -175,7 +215,7 @@ function Hero() {
           </a>
           <a href="https://linkedin.com/in/geetha-gokula-p" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00F5D4] transition-colors">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM7.433c-1.1445.337  0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
           <a href="https://instagram.com/graphikardia" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00F5D4] transition-colors">
@@ -206,7 +246,7 @@ function Hero() {
 
 function SkillsSection() {
   return (
-    <section className="py-32 px-6">
+    <section className="py-32 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Expertise</span>
@@ -220,22 +260,36 @@ function SkillsSection() {
           {skills.map((skill, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 40, rotateX: -15 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              className="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-[#00F5D4]/50 transition-colors group"
+              transition={{ 
+                delay: index * 0.08, 
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+                transition: { duration: 0.2 }
+              }}
+              className="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-[#00F5D4]/50 transition-colors group cursor-pointer"
             >
-              <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${skill.color}20` }}
+              <motion.div 
+                className="relative"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <svg className="w-6 h-6" fill={skill.color} viewBox="0 0 24 24">
-                  <path d={skill.icon} />
-                </svg>
-              </div>
-              <h3 className="text-lg font-semibold">{skill.name}</h3>
+                <div 
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `${skill.color}20` }}
+                >
+                  <svg className="w-6 h-6" fill={skill.color} viewBox="0 0 24 24">
+                    <path d={skill.icon} />
+                  </svg>
+                </div>
+              </motion.div>
+              <h3 className="text-lg font-semibold group-hover:text-[#00F5D4] transition-colors">{skill.name}</h3>
             </motion.div>
           ))}
         </div>
@@ -246,7 +300,7 @@ function SkillsSection() {
 
 function ExperienceSection() {
   return (
-    <section className="py-32 px-6 bg-white/5">
+    <section className="py-32 px-6 bg-white/5 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Journey</span>
@@ -260,33 +314,49 @@ function ExperienceSection() {
           {experience.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.15 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                delay: index * 0.12, 
+                duration: 0.7,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
               className="relative pl-8 border-l-2 border-[#00F5D4]/50"
             >
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#00F5D4]" />
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold">{exp.company}</h3>
-                    <p className="text-[#00F5D4]">{exp.role}</p>
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#00F5D4] shadow-[0_0_15px_rgba(0,245,212,0.5)]" />
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-[#00F5D4]/30 transition-colors">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold">{exp.company}</h3>
+                      <p className="text-[#00F5D4]">{exp.role}</p>
+                    </div>
+                    <div className="text-right text-sm text-white/60 mt-2 md:mt-0">
+                      <p>{exp.period}</p>
+                      <p>{exp.location}</p>
+                    </div>
                   </div>
-                  <div className="text-right text-sm text-white/60">
-                    <p>{exp.period}</p>
-                    <p>{exp.location}</p>
+                  <p className="text-white/70 mb-4">{exp.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.highlights.map((h, i) => (
+                      <motion.span 
+                        key={i}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: (index * 0.12) + (i * 0.05) }}
+                        className="px-3 py-1 bg-[#00F5D4]/10 text-[#00F5D4] rounded-full text-sm"
+                      >
+                        {h}
+                      </motion.span>
+                    ))}
                   </div>
                 </div>
-                <p className="text-white/70 mb-4">{exp.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {exp.highlights.map((h, i) => (
-                    <span key={i} className="px-3 py-1 bg-[#00F5D4]/10 text-[#00F5D4] rounded-full text-sm">
-                      {h}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -297,7 +367,7 @@ function ExperienceSection() {
 
 function ProjectsSection() {
   return (
-    <section className="py-32 px-6">
+    <section className="py-32 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Portfolio</span>
@@ -309,13 +379,21 @@ function ProjectsSection() {
 
         <div className="mt-16 space-y-16">
           <AnimatedSection>
-            <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+            >
               <div className="grid md:grid-cols-2 gap-0">
-                <div className="aspect-video bg-gradient-to-br from-[#00F5D4]/20 to-purple-500/20 flex items-center justify-center">
+                <motion.div 
+                  className="aspect-video bg-gradient-to-br from-[#00F5D4]/20 to-purple-500/20 flex items-center justify-center overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4 }}
+                >
                   <svg className="w-20 h-20 text-[#00F5D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
-                </div>
+                </motion.div>
                 <div className="p-8">
                   <span className="text-[#00F5D4] text-xs uppercase tracking-wider">Healthcare Marketing</span>
                   <h3 className="text-2xl font-bold mt-2 mb-4">Altius Multi-speciality Hospital</h3>
@@ -324,18 +402,24 @@ function ProjectsSection() {
                     video content creation, and performance marketing campaigns.
                   </p>
                   <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className="text-center p-4 bg-white/5 rounded-xl">
-                      <div className="text-2xl font-bold text-[#00F5D4]">23%</div>
-                      <div className="text-xs text-white/60">Patient Inflow</div>
-                    </div>
-                    <div className="text-center p-4 bg-white/5 rounded-xl">
-                      <div className="text-2xl font-bold text-[#00F5D4]">25%</div>
-                      <div className="text-xs text-white/60">Engagement</div>
-                    </div>
-                    <div className="text-center p-4 bg-white/5 rounded-xl">
-                      <div className="text-2xl font-bold text-[#00F5D4]">24hr</div>
-                      <div className="text-xs text-white/60">Turnaround</div>
-                    </div>
+                    {[
+                      { value: "23%", label: "Patient Inflow" },
+                      { value: "25%", label: "Engagement" },
+                      { value: "24hr", label: "Turnaround" }
+                    ].map((stat, i) => (
+                      <motion.div 
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        whileHover={{ scale: 1.1 }}
+                        className="text-center p-4 bg-white/5 rounded-xl cursor-default"
+                      >
+                        <div className="text-2xl font-bold text-[#00F5D4]">{stat.value}</div>
+                        <div className="text-xs text-white/60">{stat.label}</div>
+                      </motion.div>
+                    ))}
                   </div>
                   <Link
                     to="/case-studies"
@@ -345,17 +429,25 @@ function ProjectsSection() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </AnimatedSection>
 
           <AnimatedSection>
-            <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+            <motion.div
+              whileHover={{ scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+            >
               <div className="grid md:grid-cols-2 gap-0">
-                <div className="aspect-video bg-gradient-to-br from-blue-500/20 to-pink-500/20 flex items-center justify-center">
+                <motion.div 
+                  className="aspect-video bg-gradient-to-br from-blue-500/20 to-pink-500/20 flex items-center justify-center overflow-hidden"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.4 }}
+                >
                   <svg className="w-20 h-20 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
-                </div>
+                </motion.div>
                 <div className="p-8">
                   <span className="text-[#00F5D4] text-xs uppercase tracking-wider">Social Media Growth</span>
                   <h3 className="text-2xl font-bold mt-2 mb-4">Graphikardia - Multiple Clients</h3>
@@ -364,18 +456,24 @@ function ProjectsSection() {
                     Dr. Darshana (Your Lifestyle Doctor), Dr. Raksha Madhu, and more healthcare professionals.
                   </p>
                   <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className="text-center p-4 bg-white/5 rounded-xl">
-                      <div className="text-2xl font-bold text-[#00F5D4]">93%</div>
-                      <div className="text-xs text-white/60">Reach Increase</div>
-                    </div>
-                    <div className="text-center p-4 bg-white/5 rounded-xl">
-                      <div className="text-2xl font-bold text-[#00F5D4]">212%</div>
-                      <div className="text-xs text-white/60">Profile Activity</div>
-                    </div>
-                    <div className="text-center p-4 bg-white/5 rounded-xl">
-                      <div className="text-2xl font-bold text-[#00F5D4]">40%</div>
-                      <div className="text-xs text-white/60">Unique Reach</div>
-                    </div>
+                    {[
+                      { value: "93%", label: "Reach Increase" },
+                      { value: "212%", label: "Profile Activity" },
+                      { value: "40%", label: "Unique Reach" }
+                    ].map((stat, i) => (
+                      <motion.div 
+                        key={i}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1 }}
+                        whileHover={{ scale: 1.1 }}
+                        className="text-center p-4 bg-white/5 rounded-xl cursor-default"
+                      >
+                        <div className="text-2xl font-bold text-[#00F5D4]">{stat.value}</div>
+                        <div className="text-xs text-white/60">{stat.label}</div>
+                      </motion.div>
+                    ))}
                   </div>
                   <Link
                     to="/case-studies"
@@ -385,7 +483,7 @@ function ProjectsSection() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </AnimatedSection>
         </div>
 
@@ -409,7 +507,7 @@ function ProjectsSection() {
 
 function EducationSection() {
   return (
-    <section className="py-32 px-6 bg-white/5">
+    <section className="py-32 px-6 bg-white/5 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Background</span>
@@ -420,19 +518,32 @@ function EducationSection() {
           {education.map((edu, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 40, rotateX: -10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="p-8 bg-white/5 border border-white/10 rounded-2xl"
+              transition={{ 
+                delay: index * 0.15, 
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              whileHover={{ 
+                scale: 1.02, 
+                y: -5,
+                transition: { duration: 0.2 }
+              }}
+              className="p-8 bg-white/5 border border-white/10 rounded-2xl cursor-pointer"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-[#00F5D4]/10 rounded-xl flex items-center justify-center">
+                <motion.div 
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-12 h-12 bg-[#00F5D4]/10 rounded-xl flex items-center justify-center"
+                >
                   <svg className="w-6 h-6 text-[#00F5D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
                   </svg>
-                </div>
+                </motion.div>
                 <div>
                   <h3 className="text-lg font-semibold">{edu.degree}</h3>
                   <p className="text-white/60">{edu.school}</p>
@@ -448,10 +559,20 @@ function EducationSection() {
             <h3 className="text-xl font-bold mb-6">Certifications</h3>
             <ul className="space-y-3">
               {certifications.map((cert, i) => (
-                <li key={i} className="flex items-center gap-3 text-white/70">
-                  <span className="w-2 h-2 bg-[#00F5D4] rounded-full" />
+                <motion.li 
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-3 text-white/70"
+                >
+                  <motion.span 
+                    whileHover={{ scale: 1.5 }}
+                    className="w-2 h-2 bg-[#00F5D4] rounded-full" 
+                  />
                   {cert}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </AnimatedSection>
@@ -459,10 +580,20 @@ function EducationSection() {
             <h3 className="text-xl font-bold mb-6">Awards & Honors</h3>
             <ul className="space-y-3">
               {awards.map((award, i) => (
-                <li key={i} className="flex items-center gap-3 text-white/70">
-                  <span className="w-2 h-2 bg-[#00F5D4] rounded-full" />
+                <motion.li 
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-3 text-white/70"
+                >
+                  <motion.span 
+                    whileHover={{ scale: 1.5 }}
+                    className="w-2 h-2 bg-[#00F5D4] rounded-full" 
+                  />
                   {award}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </AnimatedSection>
@@ -474,30 +605,52 @@ function EducationSection() {
 
 function CTASection() {
   return (
-    <section className="py-32 px-6">
+    <section className="py-32 px-6 overflow-hidden">
       <div className="max-w-4xl mx-auto text-center">
         <AnimatedSection>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             Let's Create Something <span className="text-[#00F5D4]">Amazing</span> Together
-          </h2>
-          <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-xl text-white/60 mb-10 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+          >
             Ready to elevate your brand with compelling content and strategic marketing? 
             Let's connect and bring your vision to life.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:cmrgokula2000@gmail.com"
-              className="px-8 py-4 bg-[#00F5D4] text-black font-bold rounded-full hover:scale-105 transition-transform"
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <motion.a
+              href="mailto:graphikardia@gmail.com"
+              className="px-8 py-4 bg-[#00F5D4] text-black font-bold rounded-full"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 245, 212, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
             >
               Get in Touch
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="tel:+917975594203"
               className="px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/10 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               +91 7975594203
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </AnimatedSection>
       </div>
     </section>
