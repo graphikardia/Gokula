@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+// @ts-ignore - types issue with this package
 import Lenis from "@studio-freight/lenis"
 
 export function useLenis() {

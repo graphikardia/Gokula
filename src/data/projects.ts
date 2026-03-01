@@ -2,6 +2,8 @@ export const projects = [
   {
     slug: "meta-growth-campaign",
     title: "Meta Growth Campaign",
+    category: "Digital Marketing",
+    client: "Growth Brand",
     role: "Performance Marketing, Creative Direction",
     year: "2024",
     hero: "/assets/project1.png",
@@ -16,6 +18,8 @@ export const projects = [
   {
     slug: "reels-strategy",
     title: "Reels Strategy Overhaul",
+    category: "Content Strategy",
+    client: "Media Company",
     role: "Content Strategy, Editing",
     year: "2025",
     hero: "/assets/project2.png",

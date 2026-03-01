@@ -1,7 +1,11 @@
 import { motion } from "framer-motion"
-import { motionVariants } from "../lib/motion"
+import { ReactNode } from "react"
 
-export default function PageTransition({ children }: any) {
+interface PageTransitionProps {
+  children: ReactNode
+}
+
+export default function PageTransition({ children }: PageTransitionProps) {
   return (
     <motion.div
       initial="initial"

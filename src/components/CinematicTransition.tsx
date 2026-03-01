@@ -1,6 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion"
-import { useLocation, useOutlet } from "react-router-dom"
-import { createContext, useContext, useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
+import { createContext, useContext, useState, useEffect, ReactNode } from "react"
+
+interface CinematicTransitionProps {
+  children: ReactNode
+}
 
 const TransitionContext = createContext<{
   isTransitioning: boolean
@@ -44,9 +48,8 @@ const contentVariants = {
   }
 }
 
-export default function CinematicTransition() {
+export default function CinematicTransition({ children }: CinematicTransitionProps) {
   const location = useLocation()
-  const outlet = useOutlet()
   const [displayedLocation, setDisplayedLocation] = useState(location)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
@@ -72,7 +75,7 @@ export default function CinematicTransition() {
           exit="exit"
           className="min-h-screen"
         >
-          {outlet}
+          {children}
         </motion.div>
         
         <motion.div

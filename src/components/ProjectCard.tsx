@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import VideoPreview from "./VideoPreview"
 
 export default function ProjectCard({ project }: any) {
   return (
