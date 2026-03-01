@@ -1,15 +1,15 @@
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { useEffect, useState, useRef } from "react"
 import WebGLParticles from "../components/WebGLParticles"
 import { Link } from "react-router-dom"
 
 const roles = [
-  { title: "Digital Marketer", desc: "Strategic campaigns that drive results", skills: ["Meta Ads", "Google Ads", "SEO"] },
-  { title: "Video Editor", desc: "Compelling visual storytelling", skills: ["Reels", "Promos", "Edits"] },
-  { title: "Brand Strategist", desc: "Building memorable brand identities", skills: ["Identity", "Positioning", "Growth"] },
-  { title: "Creative Director", desc: "Turning ideas into impactful content", skills: ["Concepts", "Direction", "Production"] },
-  { title: "Social Media Manager", desc: "Growing engaged communities", skills: ["Content", "Engagement", "Analytics"] },
-  { title: "Graphic Designer", desc: "Visual designs that captivate", skills: ["Logos", "Branding", "UI/UX"] },
+  { title: "Creative Lead", desc: "Leading creative vision and brand direction", tools: ["Brand Identity", "Creative Strategy", "Team Leadership"] },
+  { title: "Digital Marketer", desc: "Data-driven campaigns that deliver results", tools: ["Meta Ads", "Google Ads", "SEO", "Analytics"] },
+  { title: "Video Editor", desc: "Compelling visual storytelling that engages", tools: ["Reels", "Promos", "Ad Creatives", "Edits"] },
+  { title: "Social Media Manager", desc: "Building and growing engaged communities", tools: ["Content Planning", "Community Mgmt", "Scheduling"] },
+  { title: "Brand Strategist", desc: "Crafting memorable brand identities", tools: ["Positioning", "Growth Strategy", "Messaging"] },
+  { title: "Graphic Designer", desc: "Visual designs that captivate audiences", tools: ["Logos", "Branding", "Social Posts"] },
 ]
 
 function FlippingRoles() {
@@ -23,7 +23,7 @@ function FlippingRoles() {
   }, [])
 
   return (
-    <div className="min-h-[140px] flex flex-col items-center justify-center">
+    <div className="min-h-[160px] flex flex-col items-center justify-center">
       <motion.div
         key={currentIndex}
         initial={{ opacity: 0, y: 20, rotateX: -90 }}
@@ -32,15 +32,22 @@ function FlippingRoles() {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <h2 className="text-3xl md:text-5xl font-bold text-[#00F5D4] mb-2">
+        <span className="text-white/50 text-sm uppercase tracking-widest">Role</span>
+        <h2 className="text-3xl md:text-5xl font-bold text-[#00F5D4] mb-2 mt-1">
           {roles[currentIndex].title}
         </h2>
-        <p className="text-white/60 text-lg mb-4">{roles[currentIndex].desc}</p>
+        <p className="text-white/60 text-md mb-4">{roles[currentIndex].desc}</p>
         <div className="flex flex-wrap justify-center gap-2">
-          {roles[currentIndex].skills.map((skill, i) => (
-            <span key={i} className="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/20">
-              {skill}
-            </span>
+          {roles[currentIndex].tools.map((tool, i) => (
+            <motion.span 
+              key={i}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: i * 0.1 }}
+              className="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/20"
+            >
+              {tool}
+            </motion.span>
           ))}
         </div>
       </motion.div>
@@ -120,12 +127,22 @@ const awards = [
 ]
 
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+  
+  const y = useTransform(scrollYProgress, [0, 1], [80, -80])
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
+  
+  const smoothScale = useSpring(scale, { stiffness: 100, damping: 30 })
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      ref={ref}
+      style={{ opacity, y, scale: smoothScale }}
       className={className}
     >
       {children}
@@ -133,11 +150,31 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
   )
 }
 
-function Hero() {
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
+  
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6">
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00F5D4] via-purple-500 to-[#00F5D4] origin-left z-50"
+      style={{ scaleX }}
+    />
+  )
+}
+
+function Hero() {
+  const { scrollY } = useScroll()
+  const heroY = useTransform(scrollY, [0, 500], [0, 150])
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0])
+  const heroScale = useTransform(scrollY, [0, 400], [1, 0.8])
+  
+  return (
+    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
       <WebGLParticles />
-      <div className="text-center max-w-4xl relative z-10">
+      <motion.div 
+        className="text-center max-w-4xl relative z-10"
+        style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
+      >
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -151,9 +188,9 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-5xl md:text-7xl font-bold mt-6 mb-2"
+          className="text-5xl md:text-7xl font-bold mt-6 mb-4"
         >
-          My Name is <span className="text-[#00F5D4]">Gokula</span>
+          Hi, I'm <span className="text-[#00F5D4]">Gokula</span>
         </motion.h1>
 
         <motion.div
@@ -171,7 +208,7 @@ function Hero() {
           transition={{ delay: 0.6 }}
           className="text-lg text-white/60 max-w-xl mx-auto mb-8"
         >
-          <span className="text-[#00F5D4]">Graphikardia</span> — A Digital Marketing Agency
+          Founder of <span className="text-[#00F5D4] font-semibold">Graphikardia</span> — A Digital Marketing Agency. Specializing in video production, social media management, and strategic brand growth.
         </motion.p>
 
         <motion.div
@@ -224,7 +261,7 @@ function Hero() {
             </svg>
           </a>
         </motion.div>
-      </div>
+      </motion.div>
       
       <motion.div
         initial={{ opacity: 0 }}
@@ -660,6 +697,7 @@ function CTASection() {
 export default function Home() {
   return (
     <main>
+      <ScrollProgress />
       <Hero />
       <SkillsSection />
       <ExperienceSection />

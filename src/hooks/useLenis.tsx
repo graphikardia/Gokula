@@ -7,13 +7,24 @@ export function useLenis() {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smooth: true
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
     })
+
+    lenis.on('scroll', (e: unknown) => {
+      // Console log for debugging if needed
+    })
+
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
     }
     requestAnimationFrame(raf)
+
     return () => lenis.destroy()
   }, [])
 }
