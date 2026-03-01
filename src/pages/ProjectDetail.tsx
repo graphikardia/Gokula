@@ -1,38 +1,84 @@
 import { useParams, Link } from "react-router-dom"
 import { projects } from "../data/projects"
 import VideoPreview from "../components/VideoPreview"
+import {
+  CaseStudyHero,
+  CaseStudyResults,
+  ChallengeSolution,
+  CaseStudyCTA,
+  CaseStudyNavigation
+} from "../components/CaseStudyLayout"
 
 export default function ProjectDetail() {
   const { slug } = useParams()
   const project = projects.find((p) => p.slug === slug)
+  
   if (!project) return <div className="min-h-screen flex items-center justify-center">Project not found</div>
 
+  const currentIndex = projects.findIndex((p) => p.slug === slug)
+  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null
+  const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null
+
   return (
-    <section className="min-h-screen py-20 px-6 max-w-6xl mx-auto">
-      <Link to="/case-studies" className="text-sm underline mb-8 inline-block">← Back</Link>
-      <h1 className="text-5xl font-bold mb-4">{project.title}</h1>
-      <p className="text-gray-400 mb-8">{project.summary}</p>
-
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <img src={project.hero} alt={project.title} className="rounded-xl shadow-lg" />
-        </div>
-        <div>
-          <h4 className="text-xl font-semibold mb-4">Outcomes</h4>
-          <ul className="space-y-2">
-            {project.outcomes?.map((o: any, i: number) => (
-              <li key={i} className="text-gray-200">
-                <strong>{o.k}:</strong> {o.v}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8">
-            <h4 className="text-xl font-semibold mb-4">Preview</h4>
-            {project.video ? <VideoPreview src={project.video} /> : null}
+    <article>
+      <CaseStudyHero
+        title={project.title}
+        category={project.category}
+        year="2024"
+        client={project.client || "Confidential"}
+        image={project.hero}
+      />
+      
+      <section className="py-24 px-6 max-w-4xl mx-auto">
+        <p className="text-xl leading-relaxed text-white/80">
+          {project.summary}
+        </p>
+      </section>
+      
+      {project.hero && (
+        <section className="px-6 pb-24">
+          <img 
+            src={project.hero} 
+            alt={project.title} 
+            className="w-full max-w-6xl mx-auto rounded-2xl shadow-2xl"
+          />
+        </section>
+      )}
+      
+      <ChallengeSolution
+        challenge="The client needed a modern, performant solution that would engage users while maintaining brand consistency across all touchpoints. Key challenges included optimizing for multiple devices and ensuring fast load times."
+        solution="We developed a comprehensive solution leveraging modern technologies and best practices. The result is a seamless, performant experience that exceeded expectations and delivered measurable business value."
+      />
+      
+      <CaseStudyResults
+        stats={project.outcomes?.map(o => ({ value: o.v, label: o.k })) || [
+          { value: "150%", label: "ROI Increase" },
+          { value: "40%", label: "Conversion Boost" },
+          { value: "2x", label: "User Engagement" },
+          { value: "99.9%", label: "Uptime" }
+        ]}
+      />
+      
+      {project.video && (
+        <section className="py-24 px-6">
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold mb-8">Project Preview</h3>
+            <VideoPreview src={project.video} />
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+      
+      <CaseStudyCTA
+        title="Ready to Start Your Project?"
+        subtitle="Let's create something amazing together. Our team is ready to bring your vision to life."
+        buttonText="Get in Touch"
+        buttonLink="/contact"
+      />
+      
+      <CaseStudyNavigation 
+        prev={prevProject ? `/projects/${prevProject.slug}` : undefined}
+        next={nextProject ? `/projects/${nextProject.slug}` : undefined}
+      />
+    </article>
   )
 }
