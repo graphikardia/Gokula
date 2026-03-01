@@ -6,18 +6,28 @@
   --bg: #0b0b0f;
   --bg-secondary: #1a1a1f;
   --text: #ffffff;
-  --text-secondary: #a1a1aa;
-  --border: #27272a;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  --border: rgba(255, 255, 255, 0.1);
   --accent: #00f5d4;
   --accent-secondary: #8b5cf6;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --header-bg: rgba(0, 0, 0, 0.3);
 }
 
 :root.light {
-  --bg: #fafafa;
+  --bg: #f8f9fa;
   --bg-secondary: #ffffff;
-  --text: #0a0a0a;
-  --text-secondary: #71717a;
-  --border: #e4e4e7;
+  --text: #1a1a1f;
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --text-muted: rgba(0, 0, 0, 0.4);
+  --border: rgba(0, 0, 0, 0.1);
+  --accent: #00a896;
+  --accent-secondary: #7c3aed;
+  --card-bg: rgba(0, 0, 0, 0.03);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --header-bg: rgba(255, 255, 255, 0.85);
 }
 
 html, body, #root {
@@ -51,6 +61,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   overscroll-behavior: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.light {
@@ -61,14 +72,12 @@ body:not(.light) {
   cursor: none;
 }
 
-/* small utility to hide native focus outlines but keep accessible focus */
 :focus {
   outline: none;
 }
 a { color: inherit; text-decoration: none; }
 img, video { display: block; max-width: 100%; height: auto; }
 
-/* Custom cursor styles */
 .custom-cursor {
   pointer-events: none;
   position: fixed;
@@ -87,4 +96,50 @@ img, video { display: block; max-width: 100%; height: auto; }
   height: 50px;
   background: var(--accent);
   opacity: 0.5;
+}
+
+/* Theme-aware utility classes */
+.theme-bg {
+  background: var(--bg);
+}
+
+.theme-bg-secondary {
+  background: var(--bg-secondary);
+}
+
+.theme-bg-card {
+  background: var(--card-bg);
+}
+
+.theme-text {
+  color: var(--text);
+}
+
+.theme-text-secondary {
+  color: var(--text-secondary);
+}
+
+.theme-text-muted {
+  color: var(--text-muted);
+}
+
+.theme-border {
+  border-color: var(--card-border);
+}
+
+.theme-header-bg {
+  background: var(--header-bg);
+}
+
+.theme-fill {
+  fill: var(--text-muted);
+}
+
+/* Hover states */
+.theme-hover:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:root.light .theme-hover:hover {
+  background: rgba(0, 0, 0, 0.08);
 }

@@ -32,11 +32,11 @@ function FlippingRoles() {
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <span className="text-white/50 text-sm uppercase tracking-widest">Role</span>
+        <span className="text-[#00F5D4]/70 text-sm uppercase tracking-widest">Role</span>
         <h2 className="text-3xl md:text-5xl font-bold text-[#00F5D4] mb-2 mt-1">
           {roles[currentIndex].title}
         </h2>
-        <p className="text-white/60 text-md mb-4">{roles[currentIndex].desc}</p>
+        <p className="text-md mb-4" style={{ color: 'var(--text-secondary)' }}>{roles[currentIndex].desc}</p>
         <div className="flex flex-wrap justify-center gap-2">
           {roles[currentIndex].tools.map((tool, i) => (
             <motion.span 
@@ -44,7 +44,8 @@ function FlippingRoles() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.1 }}
-              className="px-3 py-1 bg-white/10 rounded-full text-sm border border-white/20"
+              className="px-3 py-1 rounded-full text-sm"
+              style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}
             >
               {tool}
             </motion.span>
@@ -169,7 +170,7 @@ function Hero() {
   const heroScale = useTransform(scrollY, [0, 400], [1, 0.8])
   
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden" style={{ background: 'var(--bg)' }}>
       <WebGLParticles />
       <motion.div 
         className="text-center max-w-4xl relative z-10"
@@ -189,6 +190,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="text-5xl md:text-7xl font-bold mt-6 mb-4"
+          style={{ color: 'var(--text)' }}
         >
           Hi, I'm <span className="text-[#00F5D4]">Gokula</span>
         </motion.h1>
@@ -206,9 +208,10 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="text-lg text-white/60 max-w-xl mx-auto mb-8"
+          className="text-lg max-w-xl mx-auto mb-8"
+          style={{ color: 'var(--text-secondary)' }}
         >
-          Founder of <span className="text-[#00F5D4] font-semibold">Graphikardia</span> — A Digital Marketing Agency. Specializing in video production, social media management, and strategic brand growth.
+          Founder of <a href="https://www.graphikardia.com/" target="_blank" rel="noopener noreferrer" className="text-[#00F5D4] font-semibold hover:underline">Graphikardia</a> — A Digital Marketing Agency. Specializing in video production, social media management, and strategic brand growth.
         </motion.p>
 
         <motion.div
@@ -219,12 +222,13 @@ function Hero() {
         >
           <a
             href="mailto:graphikardia@gmail.com"
-            className="px-6 py-3 bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-colors flex items-center gap-2"
+            className="px-6 py-3 rounded-full hover:bg-white/20 transition-colors flex items-center gap-2"
+            style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', color: 'var(--text)' }}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            graphikardia@gmail.com
+            <span className="hover:text-[#00F5D4] transition-colors">graphikardia@gmail.com</span>
           </a>
           <Link
             to="/case-studies"
@@ -240,22 +244,22 @@ function Hero() {
           transition={{ delay: 0.9 }}
           className="flex justify-center gap-6 mt-8"
         >
-          <a href="mailto:graphikardia@gmail.com" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+          <a href="mailto:graphikardia@gmail.com" style={{ color: 'var(--text-muted)' }} className="hover:text-[#00F5D4] transition-colors">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </a>
-          <a href="tel:+917975594203" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+          <a href="tel:+917975594203" style={{ color: 'var(--text-muted)' }} className="hover:text-[#00F5D4] transition-colors">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
           </a>
-          <a href="https://linkedin.com/in/geetha-gokula-p" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+          <a href="https://linkedin.com/in/geetha-gokula-p" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)' }} className="hover:text-[#00F5D4] transition-colors">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM7.433c-1.1445.337  0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
-          <a href="https://instagram.com/graphikardia" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+          <a href="https://instagram.com/graphikardia" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)' }} className="hover:text-[#00F5D4] transition-colors">
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
             </svg>
@@ -283,12 +287,12 @@ function Hero() {
 
 function SkillsSection() {
   return (
-    <section className="py-32 px-6 overflow-hidden">
+    <section className="py-32 px-6 overflow-hidden" style={{ background: 'var(--bg)' }}>
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Expertise</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Skills & Tools</h2>
-          <p className="text-white/60 text-lg max-w-2xl">
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: 'var(--text)' }}>Skills & Tools</h2>
+          <p className="text-lg max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
             Technologies and platforms I use to bring creative visions to life.
           </p>
         </AnimatedSection>
@@ -310,7 +314,8 @@ function SkillsSection() {
                 y: -5,
                 transition: { duration: 0.2 }
               }}
-              className="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-[#00F5D4]/50 transition-colors group cursor-pointer"
+              className="p-6 rounded-2xl hover:border-[#00F5D4]/50 transition-colors group cursor-pointer"
+              style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}
             >
               <motion.div 
                 className="relative"
@@ -326,7 +331,7 @@ function SkillsSection() {
                   </svg>
                 </div>
               </motion.div>
-              <h3 className="text-lg font-semibold group-hover:text-[#00F5D4] transition-colors">{skill.name}</h3>
+              <h3 className="text-lg font-semibold group-hover:text-[#00F5D4] transition-colors" style={{ color: 'var(--text)' }}>{skill.name}</h3>
             </motion.div>
           ))}
         </div>
@@ -337,12 +342,12 @@ function SkillsSection() {
 
 function ExperienceSection() {
   return (
-    <section className="py-32 px-6 bg-white/5 overflow-hidden">
+    <section className="py-32 px-6 overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Journey</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Work Experience</h2>
-          <p className="text-white/60 text-lg max-w-2xl">
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: 'var(--text)' }}>Work Experience</h2>
+          <p className="text-lg max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
             Professional journey through roles that shaped my expertise.
           </p>
         </AnimatedSection>
@@ -366,18 +371,18 @@ function ExperienceSection() {
                 transition={{ duration: 0.2 }}
               >
                 <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#00F5D4] shadow-[0_0_15px_rgba(0,245,212,0.5)]" />
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:border-[#00F5D4]/30 transition-colors">
+                <div className="rounded-2xl p-8 hover:border-[#00F5D4]/30 transition-colors" style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}>
                   <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                     <div>
-                      <h3 className="text-xl font-bold">{exp.company}</h3>
+                      <h3 className="text-xl font-bold" style={{ color: 'var(--text)' }}>{exp.company}</h3>
                       <p className="text-[#00F5D4]">{exp.role}</p>
                     </div>
-                    <div className="text-right text-sm text-white/60 mt-2 md:mt-0">
+                    <div className="text-right text-sm mt-2 md:mt-0" style={{ color: 'var(--text-secondary)' }}>
                       <p>{exp.period}</p>
                       <p>{exp.location}</p>
                     </div>
                   </div>
-                  <p className="text-white/70 mb-4">{exp.description}</p>
+                  <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{exp.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {exp.highlights.map((h, i) => (
                       <motion.span 
@@ -404,12 +409,12 @@ function ExperienceSection() {
 
 function ProjectsSection() {
   return (
-    <section className="py-32 px-6 overflow-hidden">
+    <section className="py-32 px-6 overflow-hidden" style={{ background: 'var(--bg)' }}>
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Portfolio</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Featured Case Studies</h2>
-          <p className="text-white/60 text-lg max-w-2xl">
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: 'var(--text)' }}>Featured Case Studies</h2>
+          <p className="text-lg max-w-2xl" style={{ color: 'var(--text-secondary)' }}>
             Detailed projects showcasing measurable results and creative excellence.
           </p>
         </AnimatedSection>
@@ -419,7 +424,8 @@ function ProjectsSection() {
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
-              className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+              className="rounded-2xl overflow-hidden"
+              style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}
             >
               <div className="grid md:grid-cols-2 gap-0">
                 <motion.div 
@@ -451,10 +457,11 @@ function ProjectsSection() {
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1 }}
                         whileHover={{ scale: 1.1 }}
-                        className="text-center p-4 bg-white/5 rounded-xl cursor-default"
+                        className="text-center p-4 rounded-xl cursor-default"
+                        style={{ background: 'var(--card-bg)' }}
                       >
                         <div className="text-2xl font-bold text-[#00F5D4]">{stat.value}</div>
-                        <div className="text-xs text-white/60">{stat.label}</div>
+                        <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>
                       </motion.div>
                     ))}
                   </div>
@@ -473,7 +480,8 @@ function ProjectsSection() {
             <motion.div
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
-              className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+              className="rounded-2xl overflow-hidden"
+              style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}
             >
               <div className="grid md:grid-cols-2 gap-0">
                 <motion.div 
@@ -505,10 +513,11 @@ function ProjectsSection() {
                         viewport={{ once: true }}
                         transition={{ delay: i * 0.1 }}
                         whileHover={{ scale: 1.1 }}
-                        className="text-center p-4 bg-white/5 rounded-xl cursor-default"
+                        className="text-center p-4 rounded-xl cursor-default"
+                        style={{ background: 'var(--card-bg)' }}
                       >
                         <div className="text-2xl font-bold text-[#00F5D4]">{stat.value}</div>
-                        <div className="text-xs text-white/60">{stat.label}</div>
+                        <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>
                       </motion.div>
                     ))}
                   </div>
@@ -544,11 +553,11 @@ function ProjectsSection() {
 
 function EducationSection() {
   return (
-    <section className="py-32 px-6 bg-white/5 overflow-hidden">
+    <section className="py-32 px-6 overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
       <div className="max-w-6xl mx-auto">
         <AnimatedSection>
           <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Background</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Education</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: 'var(--text)' }}>Education</h2>
         </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-6 mt-12">
@@ -568,7 +577,8 @@ function EducationSection() {
                 y: -5,
                 transition: { duration: 0.2 }
               }}
-              className="p-8 bg-white/5 border border-white/10 rounded-2xl cursor-pointer"
+              className="p-8 rounded-2xl cursor-pointer"
+              style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}
             >
               <div className="flex items-center gap-4 mb-4">
                 <motion.div 
@@ -582,18 +592,18 @@ function EducationSection() {
                   </svg>
                 </motion.div>
                 <div>
-                  <h3 className="text-lg font-semibold">{edu.degree}</h3>
-                  <p className="text-white/60">{edu.school}</p>
+                  <h3 className="text-lg font-semibold" style={{ color: 'var(--text)' }}>{edu.degree}</h3>
+                  <p style={{ color: 'var(--text-secondary)' }}>{edu.school}</p>
                 </div>
               </div>
-              <p className="text-white/60 text-sm">{edu.period} • {edu.location}</p>
+              <p style={{ color: 'var(--text-secondary)' }} className="text-sm">{edu.period} • {edu.location}</p>
             </motion.div>
           ))}
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-12">
           <AnimatedSection>
-            <h3 className="text-xl font-bold mb-6">Certifications</h3>
+            <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--text)' }}>Certifications</h3>
             <ul className="space-y-3">
               {certifications.map((cert, i) => (
                 <motion.li 
@@ -602,7 +612,8 @@ function EducationSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-3 text-white/70"
+                  className="flex items-center gap-3"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   <motion.span 
                     whileHover={{ scale: 1.5 }}
@@ -614,7 +625,7 @@ function EducationSection() {
             </ul>
           </AnimatedSection>
           <AnimatedSection>
-            <h3 className="text-xl font-bold mb-6">Awards & Honors</h3>
+            <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--text)' }}>Awards & Honors</h3>
             <ul className="space-y-3">
               {awards.map((award, i) => (
                 <motion.li 
@@ -623,7 +634,8 @@ function EducationSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-3 text-white/70"
+                  className="flex items-center gap-3"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
                   <motion.span 
                     whileHover={{ scale: 1.5 }}
@@ -642,11 +654,12 @@ function EducationSection() {
 
 function CTASection() {
   return (
-    <section className="py-32 px-6 overflow-hidden">
+    <section className="py-32 px-6 overflow-hidden" style={{ background: 'var(--bg)' }}>
       <div className="max-w-4xl mx-auto text-center">
         <AnimatedSection>
           <motion.h2 
             className="text-4xl md:text-5xl font-bold mb-6"
+            style={{ color: 'var(--text)' }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -655,7 +668,8 @@ function CTASection() {
             Let's Create Something <span className="text-[#00F5D4]">Amazing</span> Together
           </motion.h2>
           <motion.p 
-            className="text-xl text-white/60 mb-10 max-w-2xl mx-auto"
+            className="text-xl mb-10 max-w-2xl mx-auto"
+            style={{ color: 'var(--text-secondary)' }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

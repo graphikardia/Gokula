@@ -6,7 +6,6 @@ import { SoundProvider } from "./hooks/useSound"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Cursor from "./components/Cursor"
-import ThemeToggle from "./components/ThemeToggle"
 import Preloader from "./components/Preloader"
 import CinematicTransition from "./components/CinematicTransition"
 import Noise from "./components/Noise"
@@ -34,7 +33,6 @@ export default function App() {
         <>
           <Header />
           <Cursor />
-          <ThemeToggle />
           <SoundToggle />
           <Noise />
           
