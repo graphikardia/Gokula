@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b0b0f;
+  --primary: #8b5cf6;
+  --accent: #00f5d4;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: none; /* we use a custom cursor */
+}
+
+/* small utility to hide native focus outlines but keep accessible focus */
+:focus {
+  outline: none;
+}
+a { color: inherit; text-decoration: none; }
+img, video { display: block; max-width: 100%; height: auto; }
