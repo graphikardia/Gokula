@@ -56,7 +56,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           transition={{ duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
           className="text-5xl md:text-7xl font-bold text-white mb-8"
         >
-          GEETHA
+          GEETHA GOKULA
         </motion.h1>
         
         <div className="w-64 h-[2px] bg-white/20 rounded-full overflow-hidden mx-auto">

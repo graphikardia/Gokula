@@ -5,7 +5,7 @@ const stories = [
   {
     id: 1,
     title: "Discovery",
-    description: "We dive deep into understanding your brand, audience, and goals through research and stakeholder interviews.",
+    description: "We dive deep into understanding your brand, audience, and goals through research, stakeholder interviews, and data analysis.",
     stat: "2 weeks",
     statLabel: "Research Phase"
   },
@@ -18,24 +18,24 @@ const stories = [
   },
   {
     id: 3,
-    title: "Design",
-    description: "Transforming strategy into compelling visuals, interfaces, and experiences that resonate with your users.",
+    title: "Create",
+    description: "Transforming strategy into compelling visuals, videos, and experiences that resonate with your target audience.",
     stat: "50+",
-    statLabel: "Design Iterations"
+    statLabel: "Assets Created"
   },
   {
     id: 4,
-    title: "Development",
-    description: "Bringing designs to life with clean code, modern frameworks, and performance-optimized solutions.",
-    stat: "99%",
-    statLabel: "Performance Score"
+    title: "Optimize",
+    description: "Leveraging data-driven insights to optimize campaigns, improve performance, and maximize ROI.",
+    stat: "93%",
+    statLabel: "Avg Reach Increase"
   },
   {
     id: 5,
-    title: "Launch",
-    description: "Rigorous testing, deployment, and post-launch support to ensure seamless user experiences.",
-    stat: "0",
-    statLabel: "Critical Bugs"
+    title: "Scale",
+    description: "Continuous improvement and scaling strategies to sustain growth and maintain brand elevation.",
+    stat: "3x",
+    statLabel: "ROI Growth"
   }
 ]
 
@@ -50,7 +50,7 @@ export default function HorizontalScroll() {
     <section ref={containerRef} className="h-[500vh] relative bg-black">
       <div className="sticky top-0 left-0 h-screen overflow-hidden">
         <div className="absolute top-8 left-8 z-20">
-          <span className="text-[#00F5D4] text-xs tracking-[0.3em] uppercase">Our Process</span>
+          <span className="text-[#00F5D4] text-xs tracking-[0.3em] uppercase">My Process</span>
         </div>
         
         <div className="absolute top-8 right-8 z-20">

@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom"
 import { projects } from "../data/projects"
-import VideoPreview from "../components/VideoPreview"
 import {
   CaseStudyHero,
   CaseStudyResults,
@@ -8,6 +7,7 @@ import {
   CaseStudyCTA,
   CaseStudyNavigation
 } from "../components/CaseStudyLayout"
+import VideoPreview from "../components/VideoPreview"
 
 export default function ProjectDetail() {
   const { slug } = useParams()
@@ -24,8 +24,8 @@ export default function ProjectDetail() {
       <CaseStudyHero
         title={project.title}
         category={project.category}
-        year="2024"
-        client={project.client || "Confidential"}
+        year={project.year}
+        client={project.client}
         image={project.hero}
       />
       
@@ -59,18 +59,22 @@ export default function ProjectDetail() {
         ]}
       />
       
-      {project.video && (
+      {(project.video || project.instagramUrl) && (
         <section className="py-24 px-6">
           <div className="max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold mb-8">Project Preview</h3>
-            <VideoPreview src={project.video} />
+            <VideoPreview 
+              src={project.video} 
+              poster={project.hero}
+              instagramUrl={project.instagramUrl}
+            />
           </div>
         </section>
       )}
       
       <CaseStudyCTA
-        title="Ready to Start Your Project?"
-        subtitle="Let's create something amazing together. Our team is ready to bring your vision to life."
+        title="Ready to start your project?"
+        subtitle="Let's create something amazing together. My team is ready to bring your vision to life."
         buttonText="Get in Touch"
         buttonLink="/contact"
       />

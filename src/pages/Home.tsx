@@ -3,7 +3,6 @@ import WebGLParticles from "../components/WebGLParticles"
 import HorizontalScroll from "../components/HorizontalScroll"
 import ProjectCard from "../components/ProjectCard"
 import { projects } from "../data/projects"
-import ScrollPath from "../components/ScrollPath"
 import Testimonials from "../components/Testimonials"
 
 export default function Home() {
@@ -11,16 +10,18 @@ export default function Home() {
     <main>
       <WebGLParticles />
       <Hero />
-      <section className="py-24">
-        <h2 className="text-4xl text-center mb-12">Featured Work</h2>
-        <div className="max-w-6xl mx-auto grid gap-8 grid-cols-1 md:grid-cols-2 px-6">
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="mb-12">
+          <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Featured Work</span>
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">Selected Projects</h2>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
             <ProjectCard key={p.slug} project={p} />
           ))}
         </div>
       </section>
       <HorizontalScroll />
-      <ScrollPath />
       <Testimonials />
     </main>
   )
