@@ -13,7 +13,6 @@ export default function Header() {
           <Link to="/case-studies" className="hover:text-[#00F5D4] transition-colors">Work</Link>
           <Link to="/videos" className="hover:text-[#00F5D4] transition-colors">Videos</Link>
           <Link to="/services" className="hover:text-[#00F5D4] transition-colors">Services</Link>
-          <Link to="/about" className="hover:text-[#00F5D4] transition-colors">About</Link>
           <motion.a
             href="mailto:cmrgokula2000@gmail.com"
             whileHover={{ scale: 1.05 }}

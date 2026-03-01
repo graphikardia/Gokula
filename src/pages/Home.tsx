@@ -1,28 +1,518 @@
-import Hero from "../components/Hero"
+import { motion } from "framer-motion"
+import { useRef } from "react"
 import WebGLParticles from "../components/WebGLParticles"
-import HorizontalScroll from "../components/HorizontalScroll"
-import ProjectCard from "../components/ProjectCard"
-import { projects } from "../data/projects"
-import Testimonials from "../components/Testimonials"
+import { Link } from "react-router-dom"
+
+const skills = [
+  { name: "Meta Ads", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z", color: "#0081FB" },
+  { name: "Google Ads", icon: "M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z", color: "#34A853" },
+  { name: "Video Editing", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z", color: "#FF6B6B" },
+  { name: "Brand Strategy", icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01", color: "#9B59B6" },
+  { name: "Creative Direction", icon: "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z", color: "#F39C12" },
+  { name: "SEO/AEO/GEO", icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 0118 0z", color: "#00F5D4" },
+]
+
+const experience = [
+  {
+    company: "Koshys Group of Institution",
+    role: "Social Media Manager",
+    period: "Jan 2026 - Present",
+    location: "Bengaluru, Karnataka",
+    description: "Managing complete digital presence including graphic design, video creation, content strategy, SEO/AEO/GEO optimization, and web design optimization for educational institution.",
+    highlights: ["SEO Optimization", "Content Strategy", "Web Design", "Video Production"]
+  },
+  {
+    company: "Graphikardia (Own Startup)",
+    role: "Founder & Digital Marketing Lead",
+    period: "2024 - Present",
+    location: "Remote",
+    description: "Full-service digital marketing agency providing social media management, content creation, video production, and brand strategy for multiple healthcare and lifestyle clients.",
+    highlights: ["Multi-client Management", "Brand Strategy", "Video Production", "Social Growth"]
+  },
+  {
+    company: "Altius Multi-speciality Hospital",
+    role: "Graphic Designer & Video Editor",
+    period: "Oct 2024 - Dec 2025",
+    location: "Bengaluru, Karnataka",
+    description: "Spearheaded end-to-end digital marketing and creative strategy. Created high-impact multimedia content including reels, WhatsApp Blasts, and Meta/Google Ad assets.",
+    highlights: ["23% Patient Inflow", "25% Engagement", "24hr Turnaround"]
+  },
+  {
+    company: "Plutowebs.co",
+    role: "Frontend UI/UX Designer & SEO Executive",
+    period: "Dec 2023 - Feb 2024",
+    location: "Internship",
+    description: "Internship role focused on frontend development, user interface design, and search engine optimization.",
+    highlights: ["UI/UX Design", "Frontend Dev", "SEO Basics", "Client Projects"]
+  }
+]
+
+const education = [
+  {
+    degree: "MBA in Digital Marketing & Business Analytics",
+    school: "CMR University",
+    period: "2022 - 2024",
+    location: "Bengaluru, Karnataka"
+  },
+  {
+    degree: "Bachelor of Commerce (B.Com)",
+    school: "CMR University",
+    period: "2018 - 2021",
+    location: "Bengaluru, Karnataka"
+  }
+]
+
+const certifications = [
+  "Google Digital Marketing Fundamentals",
+  "Strategic Management",
+  "Financial Marketing & Stock Markets"
+]
+
+const awards = [
+  "YUVA Summit India Winner",
+  "Best Core Organizing Team (RANVITA 2024)",
+  "NCC 'C' Certificate Holder"
+]
+
+function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center px-6">
+      <WebGLParticles />
+      <div className="text-center max-w-4xl relative z-10">
+        <motion.span
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-[#00F5D4] uppercase tracking-[0.3em] text-sm"
+        >
+          Creative Lead & Digital Marketing Expert
+        </motion.span>
+        
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="text-5xl md:text-7xl font-bold mt-6 mb-6"
+        >
+          Hi, I'm <span className="text-[#00F5D4]">Geetha</span>
+        </motion.h1>
+        
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-xl text-white/60 max-w-2xl mx-auto mb-8"
+        >
+          Founder of <span className="text-[#00F5D4]">Graphikardia</span> - A Digital Marketing Agency.
+          Specializing in video production, social media management, and strategic brand growth.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
+          {skills.slice(0, 4).map((skill, i) => (
+            <span key={i} className="px-4 py-2 bg-white/5 rounded-full text-sm border border-white/10 flex items-center gap-2">
+              <svg className="w-4 h-4" fill={skill.color} viewBox="0 0 24 24">
+                <path d={skill.icon} />
+              </svg>
+              {skill.name}
+            </span>
+          ))}
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <Link
+            to="/case-studies"
+            className="px-8 py-4 bg-[#00F5D4] text-black font-bold rounded-full hover:scale-105 transition-transform"
+          >
+            View My Work
+          </Link>
+          <a
+            href="mailto:cmrgokula2000@gmail.com"
+            className="px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/10 transition-colors"
+          >
+            Get in Touch
+          </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="flex justify-center gap-6 mt-8"
+        >
+          <a href="mailto:cmrgokula2000@gmail.com" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </a>
+          <a href="tel:+917975594203" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </a>
+          <a href="https://linkedin.com/in/geetha-gokula-p" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="https://instagram.com/graphikardia" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#00F5D4] transition-colors">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+        </motion.div>
+      </div>
+      
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2"
+        >
+          <div className="w-1 h-2 bg-[#00F5D4] rounded-full" />
+        </motion.div>
+      </motion.div>
+    </section>
+  )
+}
+
+function SkillsSection() {
+  return (
+    <section className="py-32 px-6">
+      <div className="max-w-6xl mx-auto">
+        <AnimatedSection>
+          <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Expertise</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Skills & Tools</h2>
+          <p className="text-white/60 text-lg max-w-2xl">
+            Technologies and platforms I use to bring creative visions to life.
+          </p>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-16">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              className="p-6 bg-white/5 border border-white/10 rounded-2xl hover:border-[#00F5D4]/50 transition-colors group"
+            >
+              <div 
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                style={{ backgroundColor: `${skill.color}20` }}
+              >
+                <svg className="w-6 h-6" fill={skill.color} viewBox="0 0 24 24">
+                  <path d={skill.icon} />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold">{skill.name}</h3>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ExperienceSection() {
+  return (
+    <section className="py-32 px-6 bg-white/5">
+      <div className="max-w-6xl mx-auto">
+        <AnimatedSection>
+          <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Journey</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Work Experience</h2>
+          <p className="text-white/60 text-lg max-w-2xl">
+            Professional journey through roles that shaped my expertise.
+          </p>
+        </AnimatedSection>
+
+        <div className="mt-16 space-y-8">
+          {experience.map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
+              className="relative pl-8 border-l-2 border-[#00F5D4]/50"
+            >
+              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#00F5D4]" />
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold">{exp.company}</h3>
+                    <p className="text-[#00F5D4]">{exp.role}</p>
+                  </div>
+                  <div className="text-right text-sm text-white/60">
+                    <p>{exp.period}</p>
+                    <p>{exp.location}</p>
+                  </div>
+                </div>
+                <p className="text-white/70 mb-4">{exp.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {exp.highlights.map((h, i) => (
+                    <span key={i} className="px-3 py-1 bg-[#00F5D4]/10 text-[#00F5D4] rounded-full text-sm">
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ProjectsSection() {
+  return (
+    <section className="py-32 px-6">
+      <div className="max-w-6xl mx-auto">
+        <AnimatedSection>
+          <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Portfolio</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Featured Case Studies</h2>
+          <p className="text-white/60 text-lg max-w-2xl">
+            Detailed projects showcasing measurable results and creative excellence.
+          </p>
+        </AnimatedSection>
+
+        <div className="mt-16 space-y-16">
+          <AnimatedSection>
+            <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-0">
+                <div className="aspect-video bg-gradient-to-br from-[#00F5D4]/20 to-purple-500/20 flex items-center justify-center">
+                  <svg className="w-20 h-20 text-[#00F5D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <div className="p-8">
+                  <span className="text-[#00F5D4] text-xs uppercase tracking-wider">Healthcare Marketing</span>
+                  <h3 className="text-2xl font-bold mt-2 mb-4">Altius Multi-speciality Hospital</h3>
+                  <p className="text-white/70 mb-6">
+                    Comprehensive digital transformation for a multi-speciality hospital including social media strategy, 
+                    video content creation, and performance marketing campaigns.
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    <div className="text-center p-4 bg-white/5 rounded-xl">
+                      <div className="text-2xl font-bold text-[#00F5D4]">23%</div>
+                      <div className="text-xs text-white/60">Patient Inflow</div>
+                    </div>
+                    <div className="text-center p-4 bg-white/5 rounded-xl">
+                      <div className="text-2xl font-bold text-[#00F5D4]">25%</div>
+                      <div className="text-xs text-white/60">Engagement</div>
+                    </div>
+                    <div className="text-center p-4 bg-white/5 rounded-xl">
+                      <div className="text-2xl font-bold text-[#00F5D4]">24hr</div>
+                      <div className="text-xs text-white/60">Turnaround</div>
+                    </div>
+                  </div>
+                  <Link
+                    to="/case-studies"
+                    className="inline-flex items-center gap-2 text-[#00F5D4] hover:gap-4 transition-all"
+                  >
+                    View Full Case Study <span>→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-0">
+                <div className="aspect-video bg-gradient-to-br from-blue-500/20 to-pink-500/20 flex items-center justify-center">
+                  <svg className="w-20 h-20 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <div className="p-8">
+                  <span className="text-[#00F5D4] text-xs uppercase tracking-wider">Social Media Growth</span>
+                  <h3 className="text-2xl font-bold mt-2 mb-4">Graphikardia - Multiple Clients</h3>
+                  <p className="text-white/70 mb-6">
+                    Digital marketing agency serving various clients including Medella Homoeo Clinic, 
+                    Dr. Darshana (Your Lifestyle Doctor), Dr. Raksha Madhu, and more healthcare professionals.
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    <div className="text-center p-4 bg-white/5 rounded-xl">
+                      <div className="text-2xl font-bold text-[#00F5D4]">93%</div>
+                      <div className="text-xs text-white/60">Reach Increase</div>
+                    </div>
+                    <div className="text-center p-4 bg-white/5 rounded-xl">
+                      <div className="text-2xl font-bold text-[#00F5D4]">212%</div>
+                      <div className="text-xs text-white/60">Profile Activity</div>
+                    </div>
+                    <div className="text-center p-4 bg-white/5 rounded-xl">
+                      <div className="text-2xl font-bold text-[#00F5D4]">40%</div>
+                      <div className="text-xs text-white/60">Unique Reach</div>
+                    </div>
+                  </div>
+                  <Link
+                    to="/case-studies"
+                    className="inline-flex items-center gap-2 text-[#00F5D4] hover:gap-4 transition-all"
+                  >
+                    View Full Case Study <span>→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <Link
+            to="/case-studies"
+            className="inline-block px-8 py-4 border border-[#00F5D4] text-[#00F5D4] rounded-full hover:bg-[#00F5D4] hover:text-black transition-colors"
+          >
+            View All Case Studies
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function EducationSection() {
+  return (
+    <section className="py-32 px-6 bg-white/5">
+      <div className="max-w-6xl mx-auto">
+        <AnimatedSection>
+          <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Background</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4">Education</h2>
+        </AnimatedSection>
+
+        <div className="grid md:grid-cols-2 gap-6 mt-12">
+          {education.map((edu, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              className="p-8 bg-white/5 border border-white/10 rounded-2xl"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-[#00F5D4]/10 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-[#00F5D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold">{edu.degree}</h3>
+                  <p className="text-white/60">{edu.school}</p>
+                </div>
+              </div>
+              <p className="text-white/60 text-sm">{edu.period} • {edu.location}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 mt-12">
+          <AnimatedSection>
+            <h3 className="text-xl font-bold mb-6">Certifications</h3>
+            <ul className="space-y-3">
+              {certifications.map((cert, i) => (
+                <li key={i} className="flex items-center gap-3 text-white/70">
+                  <span className="w-2 h-2 bg-[#00F5D4] rounded-full" />
+                  {cert}
+                </li>
+              ))}
+            </ul>
+          </AnimatedSection>
+          <AnimatedSection>
+            <h3 className="text-xl font-bold mb-6">Awards & Honors</h3>
+            <ul className="space-y-3">
+              {awards.map((award, i) => (
+                <li key={i} className="flex items-center gap-3 text-white/70">
+                  <span className="w-2 h-2 bg-[#00F5D4] rounded-full" />
+                  {award}
+                </li>
+              ))}
+            </ul>
+          </AnimatedSection>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CTASection() {
+  return (
+    <section className="py-32 px-6">
+      <div className="max-w-4xl mx-auto text-center">
+        <AnimatedSection>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Let's Create Something <span className="text-[#00F5D4]">Amazing</span> Together
+          </h2>
+          <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
+            Ready to elevate your brand with compelling content and strategic marketing? 
+            Let's connect and bring your vision to life.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="mailto:cmrgokula2000@gmail.com"
+              className="px-8 py-4 bg-[#00F5D4] text-black font-bold rounded-full hover:scale-105 transition-transform"
+            >
+              Get in Touch
+            </a>
+            <a
+              href="tel:+917975594203"
+              className="px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/10 transition-colors"
+            >
+              +91 7975594203
+            </a>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  )
+}
 
 export default function Home() {
   return (
     <main>
-      <WebGLParticles />
       <Hero />
-      <section className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="mb-12">
-          <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Featured Work</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">Selected Projects</h2>
-        </div>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
-        </div>
-      </section>
-      <HorizontalScroll />
-      <Testimonials />
+      <SkillsSection />
+      <ExperienceSection />
+      <ProjectsSection />
+      <EducationSection />
+      <CTASection />
     </main>
   )
 }

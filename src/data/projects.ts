@@ -4,16 +4,33 @@ export const projects = [
     title: "Altius Multi-speciality Hospital",
     category: "Healthcare Marketing",
     client: "Altius Multi-speciality Hospital",
-    role: "Senior Graphic Designer & Video Editor",
-    year: "2024 - Present",
+    role: "Graphic Designer & Video Editor",
+    year: "Oct 2024 - Dec 2025",
     hero: "/assets/altius.jpg",
     video: "",
-    instagramUrl: "https://www.instagram.com/p/DLGPZqRyj1x/",
-    summary: "Spearheaded end-to-end digital marketing and creative strategy, resulting in a 23% increase in patient inflow and a 25% boost in digital engagement through targeted visual storytelling.",
+    instagramUrl: "https://www.instagram.com/altiushospital/",
+    summary: "Complete digital transformation for a multi-speciality hospital with 23% increase in patient inflow and 25% boost in digital engagement.",
     outcomes: [
       { k: "Patient Inflow", v: "+23%" },
       { k: "Digital Engagement", v: "+25%" },
       { k: "Content Turnaround", v: "24 hours" }
+    ]
+  },
+  {
+    slug: "graphikardia-agency",
+    title: "Graphikardia Digital Agency",
+    category: "Digital Marketing Agency",
+    client: "Multiple Clients (Medella, Dr. Darshana, Dr. Raksha Madhu)",
+    role: "Founder & Lead",
+    year: "2024 - Present",
+    hero: "/assets/graphikardia.jpg",
+    video: "",
+    instagramUrl: "https://www.instagram.com/graphikardia/",
+    summary: "Full-service digital marketing agency serving healthcare professionals with 93% average reach increase and 212% profile activity surge.",
+    outcomes: [
+      { k: "Avg Reach Increase", v: "+93%" },
+      { k: "Profile Activity", v: "+212%" },
+      { k: "Unique Reach", v: "+40%" }
     ]
   },
   {
@@ -22,11 +39,11 @@ export const projects = [
     category: "Social Media Management",
     client: "Medella Homoeo Clinic",
     role: "Social Media Manager",
-    year: "2025",
+    year: "Sep 2025 - Dec 2025",
     hero: "/assets/medella.jpg",
     video: "",
-    instagramUrl: "https://www.instagram.com/p/DLGPE8pyt8kO/",
-    summary: "Established the clinic's Instagram & Google Profile from the ground up, engineering a content strategy that scaled account reach from 700 to 18,000 views within 90 days.",
+    instagramUrl: "https://www.instagram.com/medellahomoeoclinic/",
+    summary: "Built Instagram presence from 700 to 18,000 views in 90 days with 93% reach increase.",
     outcomes: [
       { k: "Account Reach", v: "700 → 18,000" },
       { k: "Reach Increase", v: "+93%" },
@@ -34,20 +51,20 @@ export const projects = [
     ]
   },
   {
-    slug: "graphikardia",
-    title: "Graphikardia - Dr. Darshana",
-    category: "Digital Impact Strategy",
-    client: "Graphikardia",
-    role: "Digital Impact Strategy Lead",
-    year: "2024",
-    hero: "/assets/graphikardia.jpg",
+    slug: "koshys-institution",
+    title: "Koshys Group of Institution",
+    category: "Social Media & Digital Marketing",
+    client: "Koshys Group of Institution",
+    role: "Social Media Manager",
+    year: "Jan 2026 - Present",
+    hero: "/assets/koshys.jpg",
     video: "",
-    instagramUrl: "https://www.instagram.com/p/DLGPF0qS_3b/",
-    summary: "Spearheaded a 90-day growth strategy, doubling account visibility from 12k to 24k views and achieving a 40% increase in unique reach.",
+    instagramUrl: "https://www.instagram.com/koshysgroup/",
+    summary: "Managing complete digital presence including SEO/AEO/GEO optimization, content strategy, and web design for educational institution.",
     outcomes: [
-      { k: "Account Visibility", v: "12k → 24k" },
-      { k: "Unique Reach", v: "+40%" },
-      { k: "Views per Video", v: "4,000+" }
+      { k: "SEO Optimization", v: "Active" },
+      { k: "Content Strategy", v: "In Progress" },
+      { k: "Video Content", v: "Developing" }
     ]
   }
 ]
