@@ -1,0 +1,26 @@
+export const projects = [
+  {
+    slug: "meta-growth-campaign",
+    title: "Meta Growth Campaign",
+    role: "Performance Marketing, Creative Direction",
+    year: "2024",
+    hero: "/assets/project1.png",
+    video: "/assets/project1-video.mp4",
+    summary: "Scaled account reach 93% in 90 days via reels + targeted ad creative.",
+    outcomes: [
+      { k: "Reach", v: "93% increase" },
+      { k: "Profile Visits", v: "212% increase" },
+      { k: "Conversion lift", v: "23% more consultations" }
+    ]
+  },
+  {
+    slug: "reels-strategy",
+    title: "Reels Strategy Overhaul",
+    role: "Content Strategy, Editing",
+    year: "2025",
+    hero: "/assets/project2.png",
+    video: "/assets/project2-video.mp4",
+    summary: "Reels program that pushed baseline views from 4k to 40k consistently.",
+    outcomes: [{ k: "Avg Views", v: "10k+" }]
+  }
+]
