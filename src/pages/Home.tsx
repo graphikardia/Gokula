@@ -1,60 +1,9 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-import { useEffect, useState, useRef } from "react"
+import { useRef } from "react"
 import { Link } from "react-router-dom"
 import Marquee from "../components/Marquee"
 import ThreeDHero from "../components/ThreeDHero"
-
-const roles = [
-  { title: "Creative Lead", desc: "Leading creative vision and brand direction", tools: ["Brand Identity", "Creative Strategy", "Team Leadership"] },
-  { title: "Digital Marketer", desc: "Data-driven campaigns that deliver results", tools: ["Meta Ads", "Google Ads", "SEO", "Analytics"] },
-  { title: "Video Editor", desc: "Compelling visual storytelling that engages", tools: ["Reels", "Promos", "Ad Creatives", "Edits"] },
-  { title: "Social Media Manager", desc: "Building and growing engaged communities", tools: ["Content Planning", "Community Mgmt", "Scheduling"] },
-  { title: "Brand Strategist", desc: "Crafting memorable brand identities", tools: ["Positioning", "Growth Strategy", "Messaging"] },
-  { title: "Graphic Designer", desc: "Visual designs that captivate audiences", tools: ["Logos", "Branding", "Social Posts"] },
-]
-
-function FlippingRoles() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % roles.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return (
-    <div className="min-h-[180px] flex flex-col items-center justify-center">
-      <motion.div
-        key={currentIndex}
-        initial={{ opacity: 0, y: 20, rotateX: -90 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-        exit={{ opacity: 0, y: -20, rotateX: 90 }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
-      >
-        <span className="text-[#00f5d4]/70 text-sm uppercase tracking-widest font-body">Role</span>
-        <h2 className="text-3xl md:text-5xl font-bold gradient-text mb-2 mt-1 font-display">
-          {roles[currentIndex].title}
-        </h2>
-        <p className="text-md mb-4 font-body" style={{ color: 'var(--text-secondary)' }}>{roles[currentIndex].desc}</p>
-        <div className="flex flex-wrap justify-center gap-2">
-          {roles[currentIndex].tools.map((tool, i) => (
-            <motion.span 
-              key={i}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1 }}
-              className="px-3 py-1 rounded-full text-sm font-body glass-card"
-            >
-              {tool}
-            </motion.span>
-          ))}
-        </div>
-      </motion.div>
-    </div>
-  )
-}
+import ContactForm from "../components/ContactForm"
 
 const skills = [
   { name: "Meta Ads", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z", color: "#0081FB" },
@@ -598,6 +547,7 @@ export default function Home() {
       <ExperienceSection />
       <ProjectsSection />
       <EducationSection />
+      <ContactForm />
       <CTASection />
     </main>
   )

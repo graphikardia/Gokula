@@ -1,6 +1,6 @@
-import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Points, PointMaterial, Preload, Float, MeshDistortMaterial, Text3D, Center } from "@react-three/drei"
-import { useRef, useMemo, useEffect, useState } from "react"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { Points, PointMaterial, Preload, Float, MeshDistortMaterial, Environment, ContactShadows, Sparkles } from "@react-three/drei"
+import { useRef, useMemo, useState, useEffect } from "react"
 import * as THREE from "three"
 import { useScroll, useTransform, motion } from "framer-motion"
 import { Link } from "react-router-dom"
@@ -11,48 +11,79 @@ interface ParticlesProps {
 
 function Particles({ scrollProgress }: ParticlesProps) {
   const ref = useRef<THREE.Points>(null)
-  const { size } = useThree()
   
-  const particles = 4000
+  const particles = 5000
   const positions = useMemo(() => {
     const pos = new Float32Array(particles * 3)
     for (let i = 0; i < particles * 3; i += 3) {
-      pos[i] = (Math.random() - 0.5) * 30
-      pos[i + 1] = (Math.random() - 0.5) * 30
-      pos[i + 2] = (Math.random() - 0.5) * 30
+      pos[i] = (Math.random() - 0.5) * 40
+      pos[i + 1] = (Math.random() - 0.5) * 40
+      pos[i + 2] = (Math.random() - 0.5) * 40
     }
     return pos
   }, [])
 
   useFrame((state) => {
     if (!ref.current) return
-    
     const t = state.clock.getElapsedTime()
-    const posArray = ref.current.geometry.attributes.position.array as Float32Array
-    
-    for (let i = 0; i < particles * 3; i += 3) {
-      posArray[i] += Math.sin(t * 0.3 + i * 0.01) * 0.003
-      posArray[i + 1] += Math.cos(t * 0.2 + i * 0.01) * 0.003
-      posArray[i + 2] += Math.sin(t * 0.1 + i * 0.01) * 0.002
-    }
-    
-    ref.current.geometry.attributes.position.needsUpdate = true
-    ref.current.rotation.y = t * 0.02 + scrollProgress * Math.PI * 2
-    ref.current.rotation.x = Math.sin(t * 0.1) * 0.1
+    ref.current.rotation.y = t * 0.03 + scrollProgress * Math.PI * 2
+    ref.current.rotation.x = Math.sin(t * 0.05) * 0.2
   })
 
   return (
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        size={0.02}
+        size={0.015}
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
         color="#00F5D4"
-        opacity={0.6}
+        opacity={0.8}
       />
     </Points>
+  )
+}
+
+function Ring({ scrollProgress }: { scrollProgress: number }) {
+  const ref = useRef<THREE.Mesh>(null)
+  
+  useFrame((state) => {
+    if (!ref.current) return
+    const t = state.clock.getElapsedTime()
+    ref.current.rotation.x = t * 0.2
+    ref.current.rotation.y = t * 0.3
+    ref.current.position.z = -8 + scrollProgress * 4
+  })
+
+  return (
+    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
+      <mesh ref={ref} position={[4, -1, -8]}>
+        <torusGeometry args={[1.2, 0.02, 16, 100]} />
+        <meshStandardMaterial color="#00F5D4" emissive="#00F5D4" emissiveIntensity={2} />
+      </mesh>
+    </Float>
+  )
+}
+
+function Ring2({ scrollProgress }: { scrollProgress: number }) {
+  const ref = useRef<THREE.Mesh>(null)
+  
+  useFrame((state) => {
+    if (!ref.current) return
+    const t = state.clock.getElapsedTime()
+    ref.current.rotation.x = t * 0.15 + Math.PI / 2
+    ref.current.rotation.y = t * 0.25
+    ref.current.position.z = -10 + scrollProgress * 5
+  })
+
+  return (
+    <Float speed={1} rotationIntensity={0.3} floatIntensity={0.8}>
+      <mesh ref={ref} position={[-4, 2, -10]}>
+        <torusGeometry args={[0.8, 0.015, 16, 100]} />
+        <meshStandardMaterial color="#f472b6" emissive="#f472b6" emissiveIntensity={2} />
+      </mesh>
+    </Float>
   )
 }
 
@@ -65,7 +96,7 @@ function DistortedSphere({ scrollProgress }: { scrollProgress: number }) {
     meshRef.current.rotation.x = t * 0.2
     meshRef.current.rotation.y = t * 0.3
     meshRef.current.position.y = Math.sin(t * 0.5) * 0.5 + scrollProgress * 2
-    meshRef.current.scale.setScalar(1 + Math.sin(t * 0.8) * 0.1)
+    meshRef.current.position.x = 3 + Math.sin(t * 0.3) * 0.3
   })
 
   return (
@@ -74,7 +105,7 @@ function DistortedSphere({ scrollProgress }: { scrollProgress: number }) {
         <sphereGeometry args={[1.5, 64, 64]} />
         <MeshDistortMaterial
           color="#8b5cf6"
-          envMapIntensity={0.4}
+          envMapIntensity={0.6}
           clearcoat={1}
           clearcoatRoughness={0}
           metalness={0.9}
@@ -82,7 +113,7 @@ function DistortedSphere({ scrollProgress }: { scrollProgress: number }) {
           distort={0.4}
           speed={2}
           transparent
-          opacity={0.8}
+          opacity={0.85}
         />
       </mesh>
     </Float>
@@ -98,7 +129,7 @@ function DistortedSphere2({ scrollProgress }: { scrollProgress: number }) {
     meshRef.current.rotation.x = t * 0.15
     meshRef.current.rotation.z = t * 0.25
     meshRef.current.position.y = Math.cos(t * 0.4) * 0.5 - scrollProgress * 1.5
-    meshRef.current.scale.setScalar(0.8 + Math.sin(t * 0.6) * 0.1)
+    meshRef.current.position.x = -3 + Math.cos(t * 0.3) * 0.3
   })
 
   return (
@@ -107,7 +138,7 @@ function DistortedSphere2({ scrollProgress }: { scrollProgress: number }) {
         <icosahedronGeometry args={[1.2, 4]} />
         <MeshDistortMaterial
           color="#f472b6"
-          envMapIntensity={0.4}
+          envMapIntensity={0.6}
           clearcoat={1}
           clearcoatRoughness={0}
           metalness={0.9}
@@ -115,7 +146,7 @@ function DistortedSphere2({ scrollProgress }: { scrollProgress: number }) {
           distort={0.3}
           speed={1.5}
           transparent
-          opacity={0.7}
+          opacity={0.75}
         />
       </mesh>
     </Float>
@@ -154,27 +185,97 @@ function TorusKnot({ scrollProgress }: { scrollProgress: number }) {
   )
 }
 
+function Octahedron({ scrollProgress }: { scrollProgress: number }) {
+  const ref = useRef<THREE.Mesh>(null)
+  
+  useFrame((state) => {
+    if (!ref.current) return
+    const t = state.clock.getElapsedTime()
+    ref.current.rotation.x = t * 0.4
+    ref.current.rotation.y = t * 0.5
+    ref.current.position.x = 5 + Math.sin(t * 0.5) * 0.5
+    ref.current.position.y = 2 + scrollProgress * -2
+  })
+
+  return (
+    <Float speed={3} rotationIntensity={1} floatIntensity={1.5}>
+      <mesh ref={ref} position={[5, 2, -7]}>
+        <octahedronGeometry args={[0.6]} />
+        <meshStandardMaterial 
+          color="#f472b6" 
+          emissive="#f472b6"
+          emissiveIntensity={0.5}
+          metalness={0.9}
+          roughness={0.1}
+        />
+      </mesh>
+    </Float>
+  )
+}
+
+function Icosahedron({ scrollProgress }: { scrollProgress: number }) {
+  const ref = useRef<THREE.Mesh>(null)
+  
+  useFrame((state) => {
+    if (!ref.current) return
+    const t = state.clock.getElapsedTime()
+    ref.current.rotation.x = t * 0.3
+    ref.current.rotation.y = t * 0.4
+    ref.current.position.x = -5 + Math.cos(t * 0.5) * 0.5
+    ref.current.position.y = -1 + scrollProgress * -2
+  })
+
+  return (
+    <Float speed={2.5} rotationIntensity={0.8} floatIntensity={1.2}>
+      <mesh ref={ref} position={[-5, -1, -8]}>
+        <icosahedronGeometry args={[0.5]} />
+        <meshStandardMaterial 
+          color="#8b5cf6" 
+          emissive="#8b5cf6"
+          emissiveIntensity={0.5}
+          metalness={0.9}
+          roughness={0.1}
+        />
+      </mesh>
+    </Float>
+  )
+}
+
 function Scene({ scrollProgress }: { scrollProgress: number }) {
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#00F5D4" />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8b5cf6" />
+      <ambientLight intensity={0.2} />
+      <pointLight position={[10, 10, 10]} intensity={1.5} color="#00F5D4" />
+      <pointLight position={[-10, -10, -10]} intensity={0.8} color="#8b5cf6" />
+      <pointLight position={[0, 5, 5]} intensity={0.5} color="#f472b6" />
       <Particles scrollProgress={scrollProgress} />
       <DistortedSphere scrollProgress={scrollProgress} />
       <DistortedSphere2 scrollProgress={scrollProgress} />
       <TorusKnot scrollProgress={scrollProgress} />
-      <fog attach="fog" args={['#0b0b0f', 8, 30]} />
+      <Ring scrollProgress={scrollProgress} />
+      <Ring2 scrollProgress={scrollProgress} />
+      <Octahedron scrollProgress={scrollProgress} />
+      <Icosahedron scrollProgress={scrollProgress} />
+      <Sparkles count={200} scale={15} size={2} speed={0.4} color="#00F5D4" />
+      <ContactShadows position={[0, -4, 0]} opacity={0.4} scale={20} blur={2} far={5} color="#00F5D4" />
+      <fog attach="fog" args={['#0a0a0f', 8, 35]} />
+      <Environment preset="night" />
     </>
   )
 }
 
 function HeroContent() {
-  const scroll = useScroll()
-  const scrollProgress = useTransform(scroll.scrollYProgress, [0, 1], [0, 1])
-  const y = useTransform(scroll.scrollYProgress, [0, 1], [0, -200])
-  const opacity = useTransform(scroll.scrollYProgress, [0, 0.5], [1, 0])
-  const scale = useTransform(scroll.scrollYProgress, [0, 0.5], [1, 0.8])
+  const { scrollYProgress } = useScroll()
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const y = useTransform(scrollYProgress, [0, 1], [0, -200])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (latest: number) => {
+      setScrollProgress(latest)
+    })
+  }, [scrollYProgress])
 
   return (
     <div className="absolute inset-0 -z-10">
@@ -183,7 +284,7 @@ function HeroContent() {
         gl={{ antialias: true, alpha: true }}
         style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}
       >
-        <Scene scrollProgress={0} />
+        <Scene scrollProgress={scrollProgress} />
         <Preload all />
       </Canvas>
       
@@ -212,11 +313,22 @@ function HeroContent() {
             style={{ 
               color: 'var(--text)',
               fontFamily: '"Permanent Marker", cursive',
-              textShadow: '0 0 60px rgba(0, 245, 212, 0.3)'
+              textShadow: '0 0 80px rgba(0, 245, 212, 0.4), 0 0 120px rgba(139, 92, 246, 0.3)'
             }}
           >
             GOKULA
           </h1>
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="flex justify-center gap-2 mb-6"
+          >
+            <span className="w-2 h-2 bg-[#00f5d4] rounded-full animate-pulse" />
+            <span className="w-2 h-2 bg-[#8b5cf6] rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+            <span className="w-2 h-2 bg-[#f472b6] rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+          </motion.div>
           
           <motion.p
             initial={{ opacity: 0 }}
