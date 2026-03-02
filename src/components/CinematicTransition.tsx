@@ -52,7 +52,12 @@ export default function CinematicTransition({ children }: CinematicTransitionPro
   const location = useLocation()
   const [displayedLocation, setDisplayedLocation] = useState(location)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const [isInitial, setIsInitial] = useState(true)
+  const [showContent, setShowContent] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowContent(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     if (location.pathname !== displayedLocation.pathname) {
@@ -65,56 +70,63 @@ export default function CinematicTransition({ children }: CinematicTransitionPro
     }
   }, [location, displayedLocation.pathname])
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsInitial(false), 1500)
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
     <TransitionContext.Provider value={{ isTransitioning, setIsTransitioning }}>
-      <AnimatePresence mode={isInitial ? "popLayout" : "wait"}>
+      {showContent && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={displayedLocation.pathname}
+            variants={contentVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="min-h-screen"
+          >
+            {children}
+          </motion.div>
+          
+          {isTransitioning && (
+            <>
+              <motion.div
+                key={`curtain-${displayedLocation.pathname}`}
+                variants={curtainVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="fixed inset-0 z-[100] bg-[#00F5D4] origin-bottom pointer-events-none"
+              />
+              <motion.div
+                key={`curtain-2-${displayedLocation.pathname}`}
+                variants={{
+                  initial: { scaleY: 1 },
+                  animate: { 
+                    scaleY: 0,
+                    transition: { duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }
+                  },
+                  exit: { 
+                    scaleY: 1,
+                    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+                  }
+                }}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="fixed inset-0 z-[99] bg-black origin-bottom pointer-events-none"
+              />
+            </>
+          )}
+        </AnimatePresence>
+      )}
+      {!showContent && (
         <motion.div
-          key={displayedLocation.pathname}
-          variants={contentVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
           className="min-h-screen"
         >
           {children}
         </motion.div>
-        
-        <motion.div
-          key={`curtain-${displayedLocation.pathname}`}
-          variants={curtainVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="fixed inset-0 z-[100] bg-[#00F5D4] origin-bottom pointer-events-none"
-          style={{ 
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)'
-          }}
-        />
-        
-        <motion.div
-          key={`curtain-2-${displayedLocation.pathname}`}
-          variants={{
-            initial: { scaleY: 1 },
-            animate: { 
-              scaleY: 0,
-              transition: { duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }
-            },
-            exit: { 
-              scaleY: 1,
-              transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-            }
-          }}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="fixed inset-0 z-[99] bg-black origin-bottom pointer-events-none"
-        />
-      </AnimatePresence>
+      )}
     </TransitionContext.Provider>
   )
 }
