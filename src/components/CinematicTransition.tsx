@@ -52,6 +52,7 @@ export default function CinematicTransition({ children }: CinematicTransitionPro
   const location = useLocation()
   const [displayedLocation, setDisplayedLocation] = useState(location)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [isInitial, setIsInitial] = useState(true)
 
   useEffect(() => {
     if (location.pathname !== displayedLocation.pathname) {
@@ -64,9 +65,14 @@ export default function CinematicTransition({ children }: CinematicTransitionPro
     }
   }, [location, displayedLocation.pathname])
 
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitial(false), 1500)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <TransitionContext.Provider value={{ isTransitioning, setIsTransitioning }}>
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode={isInitial ? "popLayout" : "wait"}>
         <motion.div
           key={displayedLocation.pathname}
           variants={contentVariants}
