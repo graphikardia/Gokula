@@ -10,6 +10,7 @@ import Preloader from "./components/Preloader"
 import CinematicTransition from "./components/CinematicTransition"
 import Noise from "./components/Noise"
 import SoundToggle from "./components/SoundToggle"
+import GlobalBackground from "./components/GlobalBackground"
 const Home = lazy(() => import("./pages/Home"))
 const About = lazy(() => import("./pages/About"))
 const CaseStudies = lazy(() => import("./pages/CaseStudies"))
@@ -31,6 +32,7 @@ export default function App() {
       
       {!loading && (
         <>
+          <GlobalBackground />
           <Header />
           <Cursor />
           <SoundToggle />

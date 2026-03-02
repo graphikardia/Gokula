@@ -116,27 +116,13 @@ const caseStudies: CaseStudy[] = [
   }
 ]
 
-const heroGradients: Record<string, string> = {
-  hospital: "from-[#00F5D4]/20 via-blue-500/20 to-purple-500/20",
-  agency: "from-pink-500/20 via-purple-500/20 to-[#00F5D4]/20",
-  clinic: "from-green-500/20 via-teal-500/20 to-blue-500/20",
-  education: "from-orange-500/20 via-red-500/20 to-pink-500/20"
-}
-
-const heroIcons: Record<string, JSX.Element> = {
-  hospital: <svg className="w-20 h-20 text-[#00F5D4]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>,
-  agency: <svg className="w-20 h-20 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
-  clinic: <svg className="w-20 h-20 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>,
-  education: <svg className="w-20 h-20 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 14v7" /></svg>
-}
-
 function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
@@ -146,47 +132,126 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
 
 export default function CaseStudies() {
   return (
-    <section className="min-h-screen py-24 px-6">
+    <section className="min-h-screen py-24 px-6" style={{ background: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto">
-        <AnimatedSection className="mb-16">
-          <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Portfolio</span>
-          <h1 className="text-4xl md:text-6xl font-bold mt-4 mb-6">Case Studies</h1>
-          <p className="text-xl text-white/60 max-w-3xl">
-            Detailed projects showcasing measurable results, creative strategies, and successful outcomes 
-            across healthcare, education, and digital marketing.
-          </p>
+        <AnimatedSection className="mb-20">
+          <div className="text-center">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-[#00f5d4] uppercase tracking-wider text-sm font-body"
+            >
+              Portfolio
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-7xl font-bold mt-4 font-display"
+              style={{ color: 'var(--text)' }}
+            >
+              Case <span className="gradient-text">Studies</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-xl mt-6 max-w-3xl mx-auto font-body"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              Detailed projects showcasing measurable results, creative strategies, and successful outcomes 
+              across healthcare, education, and digital marketing.
+            </motion.p>
+          </div>
         </AnimatedSection>
 
-        <div className="space-y-24">
+        <div className="space-y-20">
           {caseStudies.map((study, index) => (
             <AnimatedSection key={study.slug}>
-              <article className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+              <motion.article
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="rounded-3xl overflow-hidden glass-card hover-lift"
+                style={{ border: '1px solid var(--glass-border)' }}
+              >
                 <div className="grid lg:grid-cols-5">
-                  <div className={`lg:col-span-2 aspect-video lg:aspect-auto flex items-center justify-center bg-gradient-to-br ${heroGradients[study.hero]}`}>
-                    {heroIcons[study.hero]}
+                  <div 
+                    className={`lg:col-span-2 aspect-video lg:aspect-auto flex items-center justify-center relative overflow-hidden`}
+                    style={{ background: `linear-gradient(135deg, ${index % 2 === 0 ? 'rgba(0, 245, 212, 0.1)' : 'rgba(139, 92, 246, 0.1)'}, rgba(0, 0, 0, 0.2))` }}
+                  >
+                    <motion.img
+                      src={study.slug === "altius-hospital" ? "https://qanomed.com/img/hospitals/altius-sripada-hospitals-hbr-layout/1.png" : "https://lookaside.fbsbx.com/lookaside/crawler/instagram/graphikardia/profile_pic.jpg"}
+                      alt={study.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent" />
                   </div>
+                  
                   <div className="lg:col-span-3 p-8 lg:p-12">
-                    <span className="text-[#00F5D4] text-xs uppercase tracking-wider">{study.category}</span>
-                    <h2 className="text-2xl lg:text-3xl font-bold mt-2 mb-2">{study.title}</h2>
-                    <p className="text-white/60 mb-6">{study.subtitle}</p>
+                    <motion.span
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      className="text-[#00f5d4] text-xs uppercase tracking-wider font-body"
+                    >
+                      {study.category}
+                    </motion.span>
+                    
+                    <motion.h2 
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 }}
+                      className="text-2xl lg:text-3xl font-bold mt-2 mb-2 font-display"
+                      style={{ color: 'var(--text)' }}
+                    >
+                      {study.title}
+                    </motion.h2>
+                    
+                    <p className="text-lg mb-8 font-body" style={{ color: 'var(--text-secondary)' }}>
+                      {study.subtitle}
+                    </p>
                     
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                       {study.results.slice(0, 4).map((result, i) => (
-                        <div key={i} className="text-center p-4 bg-white/5 rounded-xl">
-                          <div className="text-xl lg:text-2xl font-bold text-[#00F5D4]">{result.value}</div>
-                          <div className="text-xs text-white/60 mt-1">{result.label}</div>
-                        </div>
+                        <motion.div 
+                          key={i}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.1 * i }}
+                          whileHover={{ scale: 1.05 }}
+                          className="text-center p-4 rounded-xl glass-card"
+                        >
+                          <div className="text-xl lg:text-2xl font-bold gradient-text">{result.value}</div>
+                          <div className="text-xs mt-1 font-body" style={{ color: 'var(--text-secondary)' }}>{result.label}</div>
+                        </motion.div>
                       ))}
                     </div>
 
                     <div className="flex flex-wrap gap-3 mb-8">
                       {study.services.slice(0, 4).map((service, i) => (
-                        <span key={i} className="px-3 py-1 bg-white/5 rounded-full text-xs text-white/70">
+                        <motion.span 
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.05 * i }}
+                          className="px-3 py-1 rounded-full text-sm font-body glass-card"
+                          style={{ color: 'var(--text-secondary)' }}
+                        >
                           {service}
-                        </span>
+                        </motion.span>
                       ))}
                       {study.services.length > 4 && (
-                        <span className="px-3 py-1 bg-white/5 rounded-full text-xs text-white/70">
+                        <span className="px-3 py-1 rounded-full text-sm font-body" style={{ color: 'var(--text-muted)' }}>
                           +{study.services.length - 4} more
                         </span>
                       )}
@@ -194,28 +259,39 @@ export default function CaseStudies() {
 
                     <Link
                       to={`/projects/${study.slug}`}
-                      className="inline-flex items-center gap-2 text-[#00F5D4] hover:gap-4 transition-all font-medium"
+                      className="inline-flex items-center gap-2 text-[#00f5d4] hover:gap-4 transition-all font-medium font-body"
                     >
                       View Full Case Study <span>→</span>
                     </Link>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             </AnimatedSection>
           ))}
         </div>
 
-        <AnimatedSection className="mt-24 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Digital Presence?</h2>
-          <p className="text-white/60 mb-8 max-w-2xl mx-auto">
-            Let's discuss how we can elevate your brand with strategic digital marketing and compelling content.
-          </p>
-          <a
-            href="mailto:graphikardia@gmail.com"
-            className="inline-block px-8 py-4 bg-[#00F5D4] text-black font-bold rounded-full hover:scale-105 transition-transform"
+        <AnimatedSection className="mt-24">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="p-12 rounded-3xl text-center glass-card border-gradient"
           >
-            Get in Touch
-          </a>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display" style={{ color: 'var(--text)' }}>
+              Ready to <span className="gradient-text">Transform</span> Your Digital Presence?
+            </h2>
+            <p className="text-lg mb-8 max-w-2xl mx-auto font-body" style={{ color: 'var(--text-secondary)' }}>
+              Let's discuss how we can elevate your brand with strategic digital marketing and compelling content.
+            </p>
+            <motion.a
+              href="mailto:graphikardia@gmail.com"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block px-8 py-4 bg-[#00f5d4] text-black font-bold rounded-full hover-lift glow-effect font-body"
+            >
+              Get in Touch
+            </motion.a>
+          </motion.div>
         </AnimatedSection>
       </div>
     </section>

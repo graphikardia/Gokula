@@ -186,6 +186,19 @@ function Hero() {
           <span className="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse" />
           <span className="text-sm uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Available for Projects</span>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-6"
+        >
+          <img 
+            src="https://lookaside.fbsbx.com/lookaside/crawler/instagram/graphikardia/profile_pic.jpg" 
+            alt="Graphikardia Logo" 
+            className="w-24 h-24 mx-auto rounded-2xl object-cover"
+          />
+        </motion.div>
         
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -431,10 +444,12 @@ function ProjectsSection() {
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.4 }}
                 >
+                  <img 
+                    src="https://qanomed.com/img/hospitals/altius-sripada-hospitals-hbr-layout/1.png" 
+                    alt="Altius Sripada Hospitals"
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-br from-[#00f5d4]/10 to-purple-500/10" />
-                  <svg className="w-20 h-20 text-[#00f5d4] relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
                 </motion.div>
                 <div className="p-8">
                   <span className="text-[#00f5d4] text-xs uppercase tracking-wider">Healthcare Marketing</span>

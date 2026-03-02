@@ -1,137 +1,239 @@
 import { motion } from "framer-motion"
+import { useState, useRef, useEffect } from "react"
 
-interface ContentItem {
+interface MediaItem {
   id: string
-  type: "reel" | "post"
+  type: "video" | "image"
+  src: string
   thumbnail: string
   caption: string
   date: string
-  url: string
 }
 
-const content: ContentItem[] = [
+const mediaItems: MediaItem[] = [
   {
     id: "1",
-    type: "reel",
-    thumbnail: "https://scontent.cdninstagram.com/v/t51.29350-15/475912337_1221076107824695_8547522956647655533_n.jpg?stp=dst-jpg_e15&_nc_cat=107",
-    caption: "Protecting Our Shared Home: The Responsibility of 1.45 Billion Indians - Yatin Basker Speech",
-    date: "May 2025",
-    url: "https://www.instagram.com/reel/DLGPZqRyj1x/"
+    type: "video",
+    src: "/videos/17985947006809050.mp4",
+    thumbnail: "/thumbnails/17995834181777477.jpg",
+    caption: "Wedding Invitation Designs - Creative Digital Invites",
+    date: "2025"
   },
   {
     id: "2",
-    type: "reel",
-    thumbnail: "https://scontent.cdninstagram.com/v/t51.29350-15/475785819_1220782541187567_4404849270676526093_n.jpg?stp=dst-jpg_e15&_nc_cat=105",
-    caption: "POWERFUL WORDS. PURPOSEFUL EDITS - Youth Empowerment by Yatin Basker",
-    date: "April 2025",
-    url: "https://www.instagram.com/reel/DLGPE8pyt8kO/"
+    type: "video",
+    src: "/videos/18033823853335433.mp4",
+    thumbnail: "/thumbnails/18034263524299067.webp",
+    caption: "Brand Content Creation - Graphikardia Portfolio",
+    date: "2025"
   },
   {
     id: "3",
-    type: "post",
-    thumbnail: "https://scontent.cdninstagram.com/v/t51.29350-15/475120773_1019056526105419_7797844569987644588_n.jpg?stp=dst-jpg_e15&_nc_cat=108",
-    caption: "SHOCKING STAT: Heart risks are starting in Indian kids as young as 5! - Healthcare Awareness",
-    date: "2025",
-    url: "https://www.instagram.com/p/-heart-health/"
+    type: "video",
+    src: "/videos/18186390577313757.mp4",
+    thumbnail: "/thumbnails/18133469281396421.webp",
+    caption: "Video Editing & Motion Graphics",
+    date: "2025"
   },
   {
     id: "4",
-    type: "post",
-    thumbnail: "https://scontent.cdninstagram.com/v/t51.29350-15/474512948_1018311689549286_920176766583095779_n.jpg?stp=dst-jpg_e15&_nc_cat=108",
-    caption: "Healthcare Content - Altius Hospital Campaigns",
-    date: "2025",
-    url: "https://www.instagram.com/graphikardia/"
+    type: "video",
+    src: "/videos/18092905450603609.mp4",
+    thumbnail: "/thumbnails/18093499006559457.webp",
+    caption: "Healthcare Marketing Content - Altius Hospital",
+    date: "2025"
   },
   {
     id: "5",
-    type: "post",
-    thumbnail: "https://scontent.cdninstagram.com/v/t51.29350-15/474221044_1017803776107616_5681171555209499298_n.jpg?stp=dst-jpg_e15&_nc_cat=108",
-    caption: "Brand Design & Creative Services",
-    date: "2025",
-    url: "https://www.instagram.com/graphikardia/"
+    type: "video",
+    src: "/videos/18545296147045577.mp4",
+    thumbnail: "/thumbnails/18545296147045577.jpg",
+    caption: "Social Media Reels - Creative Direction",
+    date: "2025"
   },
   {
     id: "6",
-    type: "post",
-    thumbnail: "https://scontent.cdninstagram.com/v/t51.29350-15/473889127_1017125890529889_4223567661066180073_n.jpg?stp=dst-jpg_e15&_nc_cat=108",
-    caption: "Video Editing & Motion Graphics Portfolio",
-    date: "2025",
-    url: "https://www.instagram.com/graphikardia/"
+    type: "video",
+    src: "/videos/18380069440137947.mp4",
+    thumbnail: "/thumbnails/18392012899104940.webp",
+    caption: "Brand Strategy & Visual Storytelling",
+    date: "2025"
+  },
+  {
+    id: "7",
+    type: "video",
+    src: "/videos/18456376219077837.mp4",
+    thumbnail: "/thumbnails/18449141944073558.jpg",
+    caption: "Digital Marketing Campaigns",
+    date: "2025"
+  },
+  {
+    id: "8",
+    type: "video",
+    src: "/videos/17895874779186800.mp4",
+    thumbnail: "/thumbnails/17896886034083163.jpg",
+    caption: "Wedding Invitation Design Showcase",
+    date: "2025"
+  },
+  {
+    id: "9",
+    type: "video",
+    src: "/videos/17926302516044574.mp4",
+    thumbnail: "/thumbnails/17926302516044574.jpg",
+    caption: "Creative Design Work",
+    date: "2025"
+  },
+  {
+    id: "10",
+    type: "video",
+    src: "/videos/18300674317213408.mp4",
+    thumbnail: "/thumbnails/18300674317213408.webp",
+    caption: "Three Unique Wedding Invitation Designs",
+    date: "2025"
   }
 ]
 
-export default function Videos() {
+function VideoModal({ item, onClose }: { item: MediaItem; onClose: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = "auto"
+    }
+  }, [])
+
   return (
-    <section className="min-h-screen py-24 px-6 max-w-7xl mx-auto">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="relative max-w-4xl w-full"
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors"
+        >
+          <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        {item.type === "video" ? (
+          <video
+            ref={videoRef}
+            src={item.src}
+            controls
+            autoPlay
+            className="w-full rounded-xl"
+          />
+        ) : (
+          <img src={item.src} alt={item.caption} className="w-full rounded-xl" />
+        )}
+        
+        <div className="mt-4">
+          <p className="text-white text-lg">{item.caption}</p>
+          <span className="text-white/50 text-sm">{item.date}</span>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+export default function Videos() {
+  const [selectedItem, setSelectedItem] = useState<MediaItem | null>(null)
+
+  return (
+    <section className="min-h-screen py-24 px-6 max-w-7xl mx-auto" style={{ background: 'var(--bg)' }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mb-12"
       >
-        <span className="text-[#00F5D4] uppercase tracking-wider text-sm">Portfolio</span>
-        <h1 className="text-5xl md:text-6xl font-bold mb-4 mt-2">Reels & Videos</h1>
-        <p className="text-white/60 text-lg max-w-2xl">
+        <span className="text-[#00f5d4] uppercase tracking-wider text-sm">Portfolio</span>
+        <h1 className="text-5xl md:text-6xl font-bold mt-2 mb-4 font-display" style={{ color: 'var(--text)' }}>Reels & Videos</h1>
+        <p className="text-lg max-w-2xl font-body" style={{ color: 'var(--text-secondary)' }}>
           Latest content from @graphikardia — video production, brand design, 
           and creative storytelling.
         </p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {content.map((item, index) => (
-          <motion.a
+        {mediaItems.map((item, index) => (
+          <motion.div
             key={item.id}
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="group relative rounded-xl overflow-hidden bg-neutral-900 block"
+            onClick={() => setSelectedItem(item)}
+            className="group relative rounded-xl overflow-hidden cursor-pointer glass-card hover-lift"
           >
-            <div className="aspect-square">
+            <div className="aspect-square relative">
               <img
                 src={item.thumbnail}
                 alt={item.caption}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement
+                  target.style.display = 'none'
+                  target.parentElement!.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-[#00f5d4]/10"><svg class="w-16 h-16 text-[#00f5d4]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>`
+                }}
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="w-16 h-16 rounded-full bg-[#00f5d4] flex items-center justify-center">
+                  <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            
             <div className="absolute top-3 left-3">
-              <span className={`px-2 py-1 rounded text-xs font-medium ${
-                item.type === "reel" 
-                  ? "bg-[#00F5D4] text-black" 
-                  : "bg-blue-500 text-white"
-              }`}>
-                {item.type === "reel" ? "REEL" : "POST"}
+              <span className="px-2 py-1 bg-[#00f5d4] text-black rounded text-xs font-medium">
+                VIDEO
               </span>
             </div>
-            <div className="absolute top-3 right-3">
-              <span className="px-2 py-1 bg-black/60 rounded text-xs text-white">
-                {item.date}
-              </span>
-            </div>
+            
             <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
               <p className="text-white text-sm font-medium line-clamp-2">{item.caption}</p>
             </div>
-          </motion.a>
+          </motion.div>
         ))}
       </div>
 
-      <motion.a
-        href="https://www.instagram.com/graphikardia/"
-        target="_blank"
-        rel="noopener noreferrer"
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="inline-flex items-center gap-2 mt-12 px-6 py-3 border border-white/20 rounded-full hover:bg-white/10 transition-colors"
+        className="text-center mt-12"
       >
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-        </svg>
-        <span>Follow @graphikardia for more</span>
-      </motion.a>
+        <a
+          href="https://www.instagram.com/graphikardia/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 border border-[#00f5d4] text-[#00f5d4] rounded-full hover:bg-[#00f5d4] hover:text-black transition-colors font-body"
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          <span>Follow @graphikardia for more</span>
+        </a>
+      </motion.div>
+
+      {selectedItem && (
+        <VideoModal item={selectedItem} onClose={() => setSelectedItem(null)} />
+      )}
     </section>
   )
 }
