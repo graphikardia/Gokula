@@ -2,8 +2,8 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import { useEffect, useState, useRef } from "react"
 import { Link } from "react-router-dom"
 import Marquee from "../components/Marquee"
-import ThreeDHero from "../components/ThreeDHero"
-import ContactForm from "../components/ContactForm"
+import StorytellingHero from "../components/StorytellingHero"
+import StorytellingContent from "../components/StorytellingContent"
 
 const roles = [
   { title: "Creative Lead", desc: "Leading creative vision and brand direction", tools: ["Brand Identity", "Creative Strategy", "Team Leadership"] },
@@ -592,16 +592,8 @@ function CTASection() {
 export default function Home() {
   return (
     <main>
-      <ScrollProgress />
-      <ThreeDHero />
-      <FlippingRoles />
-      <Marquee />
-      <SkillsSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <EducationSection />
-      <ContactForm />
-      <CTASection />
+      <StorytellingHero />
+      <StorytellingContent />
     </main>
   )
 }
