@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Float, MeshDistortMaterial, Environment, Sparkles } from "@react-three/drei"
+import { Float, MeshDistortMaterial, Sparkles } from "@react-three/drei"
 import { useRef } from "react"
 import * as THREE from "three"
 import { motion } from "framer-motion"
@@ -57,7 +57,6 @@ function ContactScene() {
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8b5cf6" />
       <ContactSphere />
       <Sparkles count={100} scale={8} size={2} speed={0.4} color="#00F5D4" />
-      <Environment preset="night" />
     </>
   )
 }

@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Points, PointMaterial, Preload, Float, MeshDistortMaterial, Environment } from "@react-three/drei"
+import { Points, PointMaterial, Preload, Float, MeshDistortMaterial } from "@react-three/drei"
 import { useRef, useMemo } from "react"
 import * as THREE from "three"
 import { useScroll, useTransform, motion } from "framer-motion"
@@ -144,7 +144,6 @@ function Scene() {
       <DistortedSphere2 />
       <TorusKnot />
       <fog attach="fog" args={['#0b0b0f', 8, 30]} />
-      <Environment preset="night" />
     </>
   )
 }

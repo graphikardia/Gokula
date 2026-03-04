@@ -5,19 +5,104 @@ interface PreloaderProps {
   onComplete: () => void
 }
 
+function SakuraPetal({ delay, side }: { delay: number; side: "left" | "right" }) {
+  return (
+    <motion.div
+      initial={{ 
+        x: side === "left" ? -100 : 100, 
+        y: -50,
+        rotate: 0,
+        opacity: 0 
+      }}
+      animate={{ 
+        x: [side === "left" ? -100 : 100, side === "left" ? 100 : -100],
+        y: [ -50, 400],
+        rotate: [0, 360, 720],
+        opacity: [0, 1, 1, 0]
+      }}
+      transition={{ 
+        duration: 4, 
+        delay,
+        repeat: Infinity,
+        ease: "linear"
+      }}
+      style={{
+        position: "absolute",
+        top: 0,
+        width: 20,
+        height: 20,
+        background: "radial-gradient(circle, #ffb7c5 0%, #ff69b4 100%)",
+        borderRadius: "50% 0 50% 50%",
+        transform: "rotate(-45deg)",
+      }}
+    />
+  )
+}
+
+function PulsingCircle() {
+  return (
+    <motion.div
+      animate={{ 
+        scale: [1, 1.5, 1],
+        opacity: [0.8, 0.2, 0.8],
+      }}
+      transition={{ 
+        duration: 1.5, 
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+      style={{
+        position: "absolute",
+        width: 60,
+        height: 60,
+        borderRadius: "50%",
+        border: "2px solid #ff69b4",
+      }}
+    />
+  )
+}
+
+function JapanesePattern() {
+  const lines = Array.from({ length: 8 })
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {lines.map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ x: i % 2 === 0 ? -200 : 200 }}
+          animate={{ x: i % 2 === 0 ? 200 : -200 }}
+          transition={{ 
+            duration: 3 + i * 0.3, 
+            repeat: Infinity, 
+            ease: "linear",
+            delay: i * 0.2
+          }}
+          style={{
+            position: "absolute",
+            top: `${10 + i * 12}%`,
+            height: 1,
+            width: 400,
+            background: "linear-gradient(90deg, transparent, rgba(255,105,180,0.3), transparent)",
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default function Preloader({ onComplete }: PreloaderProps) {
   const [progress, setProgress] = useState(0)
   const [isExiting, setIsExiting] = useState(false)
 
   useEffect(() => {
-    const duration = 2500
-    const interval = 25
+    const duration = 3000
+    const interval = 30
     const steps = duration / interval
     let currentStep = 0
 
     const timer = setInterval(() => {
       currentStep++
-      const easeProgress = Math.pow(currentStep / steps, 1.5)
+      const easeProgress = Math.pow(currentStep / steps, 1.8)
       setProgress(Math.min(Math.round(easeProgress * 100), 100))
       
       if (currentStep >= steps) {
@@ -25,7 +110,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         setIsExiting(true)
         setTimeout(() => {
           onComplete()
-        }, 800)
+        }, 1000)
       }
     }, interval)
 
@@ -38,35 +123,77 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="fixed inset-0 z-[9999] bg-[#0a0a0f] flex flex-col items-center justify-center overflow-hidden"
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="fixed inset-0 z-[9999] bg-gradient-to-b from-[#1a0a1a] via-[#0d0510] to-[#050208] flex flex-col items-center justify-center overflow-hidden"
+          style={{ background: "linear-gradient(180deg, #1a0a1a 0%, #0d0510 50%, #050208 100%)" }}
         >
-          <motion.div
-            initial={{ scaleX: 1 }}
-            animate={{ scaleX: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-            className="absolute inset-0 bg-gradient-to-r from-[#00F5D4] via-[#8b5cf6] to-[#f472b6] origin-left"
-          />
+          <JapanesePattern />
           
+          {[...Array(5)].map((_, i) => (
+            <SakuraPetal key={i} delay={i * 0.3} side={i % 2 === 0 ? "left" : "right"} />
+          ))}
+
+          <div className="relative flex items-center justify-center">
+            <PulsingCircle />
+            <motion.div
+              animate={{ 
+                scale: [1, 1.2, 1],
+                rotate: [0, 180, 360],
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #ff69b4, #ff1493)",
+                boxShadow: "0 0 30px rgba(255, 105, 180, 0.6), 0 0 60px rgba(255, 105, 180, 0.3)",
+              }}
+            />
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isExiting ? 0 : 1, y: isExiting ? -20 : 0 }}
-            transition={{ duration: 0.4 }}
-            className="relative z-10 text-center"
+            transition={{ duration: 0.5 }}
+            className="relative z-10 text-center mt-12"
           >
             <motion.h1
               initial={{ letterSpacing: "0px" }}
-              animate={{ letterSpacing: isExiting ? "48px" : "20px" }}
-              transition={{ duration: 1.2, ease: [0.2, 0.8, 0.2, 1] }}
-              className="text-4xl md:text-6xl font-bold text-white mb-8"
-              style={{ fontFamily: '"Permanent Marker", cursive' }}
+              animate={{ letterSpacing: isExiting ? "60px" : "24px" }}
+              transition={{ duration: 1.5, ease: [0.2, 0.8, 0.2, 1] }}
+              style={{
+                fontSize: "clamp(2rem, 8vw, 4rem)",
+                fontWeight: "bold",
+                color: "#fff",
+                fontFamily: '"Permanent Marker", cursive',
+                textShadow: "0 0 40px rgba(255, 105, 180, 0.5)",
+              }}
             >
               GOKULA
             </motion.h1>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="mt-2"
+            >
+              <span style={{ color: "#ff69b4", fontSize: "0.9rem", letterSpacing: "0.3em" }}>
+                御来る
+              </span>
+            </motion.div>
             
-            <div className="w-64 md:w-80 h-[2px] bg-white/10 rounded-full overflow-hidden mx-auto mb-4">
+            <div className="mt-8 mx-auto" style={{ width: 200, height: 3, background: "rgba(255,255,255,0.1)", borderRadius: 2, overflow: "hidden" }}>
               <motion.div
-                className="h-full bg-gradient-to-r from-[#00F5D4] to-[#8b5cf6]"
+                style={{
+                  height: "100%",
+                  background: "linear-gradient(90deg, #ff69b4, #ffb7c5, #ff69b4)",
+                  boxShadow: "0 0 20px rgba(255, 105, 180, 0.5)",
+                }}
                 initial={{ width: "0%" }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.1 }}
@@ -76,32 +203,72 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="text-white/60 text-sm font-mono"
+              transition={{ delay: 0.5 }}
+              style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", marginTop: "1rem", fontFamily: "monospace" }}
             >
               {progress}%
             </motion.p>
           </motion.div>
-          
+
           <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: isExiting ? 100 : 0, opacity: isExiting ? 0 : 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="absolute bottom-8 text-white/30 text-xs tracking-[0.3em] font-body"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="absolute bottom-8"
+            style={{ color: "rgba(255,105,180,0.4)", fontSize: "0.7rem", letterSpacing: "0.4em" }}
           >
             CREATIVE PORTFOLIO
           </motion.div>
 
           <motion.div
-            className="absolute top-4 right-4 flex gap-1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.8 }}
+            className="absolute top-6 flex gap-3"
           >
-            <span className="w-2 h-2 bg-[#00F5D4] rounded-full animate-pulse" />
-            <span className="w-2 h-2 bg-[#8b5cf6] rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-            <span className="w-2 h-2 bg-[#f472b6] rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={i}
+                animate={{ 
+                  scale: [1, 1.3, 1],
+                  backgroundColor: ["#ff69b4", "#ffb7c5", "#ff69b4"]
+                }}
+                transition={{ 
+                  duration: 1, 
+                  repeat: Infinity,
+                  delay: i * 0.2
+                }}
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                }}
+              />
+            ))}
           </motion.div>
+
+          <motion.div
+            className="absolute"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            style={{
+              width: 400,
+              height: 400,
+              border: "1px solid rgba(255,105,180,0.1)",
+              borderRadius: "50%",
+            }}
+          />
+          <motion.div
+            className="absolute"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            style={{
+              width: 300,
+              height: 300,
+              border: "1px solid rgba(255,105,180,0.15)",
+              borderRadius: "50%",
+            }}
+          />
         </motion.div>
       )}
     </AnimatePresence>
