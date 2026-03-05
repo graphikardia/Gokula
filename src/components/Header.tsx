@@ -39,13 +39,13 @@ export default function Header() {
       <header className="fixed top-0 w-full z-40 py-4 px-6 backdrop-blur" style={{ background: 'var(--header-bg)' }}>
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link to="/" className="font-bold text-lg tracking-wider z-50" style={{ color: 'var(--text)' }}>
-            <span className="text-[#00F5D4]">GEETHA</span> GOKULA P
+            <span style={{ color: '#ff6b00' }}>⚔️</span> GOKULA
           </Link>
           
           <nav className="hidden md:flex gap-6 items-center">
-            <Link to="/case-studies" className="hover:text-[#00F5D4] transition-colors" style={{ color: 'var(--text)' }}>Work</Link>
-            <Link to="/videos" className="hover:text-[#00F5D4] transition-colors" style={{ color: 'var(--text)' }}>Videos</Link>
-            <Link to="/services" className="hover:text-[#00F5D4] transition-colors" style={{ color: 'var(--text)' }}>Services</Link>
+            <Link to="/case-studies" className="hover:text-orange-400 transition-colors" style={{ color: 'var(--text)' }}>Work</Link>
+            <Link to="/videos" className="hover:text-orange-400 transition-colors" style={{ color: 'var(--text)' }}>Videos</Link>
+            <Link to="/services" className="hover:text-orange-400 transition-colors" style={{ color: 'var(--text)' }}>Services</Link>
             <motion.button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               whileHover={{ scale: 1.1 }}
@@ -67,7 +67,8 @@ export default function Header() {
             <motion.a
               href="mailto:graphikardia@gmail.com"
               whileHover={{ scale: 1.05 }}
-              className="px-4 py-2 bg-[#00F5D4] text-black font-medium rounded-full text-sm"
+              className="px-4 py-2 font-medium rounded-full text-sm"
+              style={{ background: 'linear-gradient(135deg, #ff6b00, #ff8c00)', color: '#000' }}
             >
               Contact
             </motion.a>
@@ -113,12 +114,12 @@ export default function Header() {
             className="text-2xl font-bold"
             style={{ color: 'var(--text)' }}
           >
-            <span className="text-[#00F5D4]">GEETHA</span> GOKULA P
+            <span className="text-[#ff6b00]">GEETHA</span> GOKULA P
           </Link>
           <Link 
             to="/case-studies" 
             onClick={() => setIsOpen(false)}
-            className="text-xl hover:text-[#00F5D4] transition-colors"
+            className="text-xl hover:text-[#ff6b00] transition-colors"
             style={{ color: 'var(--text)' }}
           >
             Work
@@ -126,7 +127,7 @@ export default function Header() {
           <Link 
             to="/videos" 
             onClick={() => setIsOpen(false)}
-            className="text-xl hover:text-[#00F5D4] transition-colors"
+            className="text-xl hover:text-[#ff6b00] transition-colors"
             style={{ color: 'var(--text)' }}
           >
             Videos
@@ -134,7 +135,7 @@ export default function Header() {
           <Link 
             to="/services" 
             onClick={() => setIsOpen(false)}
-            className="text-xl hover:text-[#00F5D4] transition-colors"
+            className="text-xl hover:text-[#ff6b00] transition-colors"
             style={{ color: 'var(--text)' }}
           >
             Services
@@ -162,7 +163,7 @@ export default function Header() {
             href="mailto:graphikardia@gmail.com"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 bg-[#00F5D4] text-black font-bold rounded-full"
+            className="px-6 py-3 bg-[#ff6b00] text-black font-bold rounded-full"
           >
             Contact
           </motion.a>

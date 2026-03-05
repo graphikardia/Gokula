@@ -33,7 +33,7 @@ function Particles() {
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
-        color="#00F5D4"
+        color="#ff6b00"
         opacity={0.6}
       />
     </Points>
@@ -55,7 +55,7 @@ function DistortedSphere() {
       <mesh ref={meshRef} position={[3, 0, -5]}>
         <sphereGeometry args={[1.5, 64, 64]} />
         <MeshDistortMaterial
-          color="#8b5cf6"
+          color="#c41e3a"
           envMapIntensity={0.4}
           clearcoat={1}
           clearcoatRoughness={0}
@@ -86,7 +86,7 @@ function DistortedSphere2() {
       <mesh ref={meshRef} position={[-3, 1, -4]}>
         <icosahedronGeometry args={[1.2, 4]} />
         <MeshDistortMaterial
-          color="#f472b6"
+          color="#00d4aa"
           envMapIntensity={0.4}
           clearcoat={1}
           clearcoatRoughness={0}
@@ -117,7 +117,7 @@ function TorusKnot() {
       <mesh ref={meshRef} position={[0, -2, -6]}>
         <torusKnotGeometry args={[0.8, 0.3, 128, 32]} />
         <MeshDistortMaterial
-          color="#00F5D4"
+          color="#ff6b00"
           envMapIntensity={0.5}
           clearcoat={1}
           clearcoatRoughness={0}
@@ -137,8 +137,8 @@ function Scene() {
   return (
     <>
       <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#00F5D4" />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8b5cf6" />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#ff6b00" />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#c41e3a" />
       <Particles />
       <DistortedSphere />
       <DistortedSphere2 />
@@ -205,7 +205,7 @@ export default function ThreeDHero() {
             className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 font-body"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Hi, I'm <span style={{ color: 'var(--accent)' }}>Gokula</span> - a <span style={{ color: '#8b5cf6' }}>Creative Lead</span> & <span style={{ color: '#f472b6' }}>Digital Marketer</span> crafting immersive digital experiences
+            Hi, I'm <span style={{ color: 'var(--accent)' }}>Gokula</span> - a <span style={{ color: '#c41e3a' }}>Creative Lead</span> & <span style={{ color: '#00d4aa' }}>Digital Marketer</span> crafting immersive digital experiences
           </motion.p>
           
           <motion.div

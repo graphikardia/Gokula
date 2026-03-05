@@ -37,7 +37,7 @@ export default function Cursor() {
         translateX: springX,
         translateY: springY
       }}
-      className="fixed w-5 h-5 rounded-full bg-[#00F5D4] pointer-events-none z-50 mix-blend-difference"
+      className="fixed w-5 h-5 rounded-full bg-[#ff6b00] pointer-events-none z-50 mix-blend-difference"
     />
   )
 }

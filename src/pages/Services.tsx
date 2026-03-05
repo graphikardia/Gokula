@@ -11,13 +11,13 @@ const services = [
     title: "Social Media Management",
     description: "End-to-end social media management including content strategy, community engagement, and growth optimization across platforms.",
     icon: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
-    color: "#8b5cf6"
+    color: "#c41e3a"
   },
   {
     title: "Video Production & Editing",
     description: "High-impact video content for reels, ads, and brand storytelling. From concept to final cut, creating scroll-stopping visuals.",
     icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z",
-    color: "#f472b6"
+    color: "#00d4aa"
   },
   {
     title: "Meta & Google Ads",
@@ -152,7 +152,7 @@ export default function Services() {
             className="mt-20 p-10 rounded-3xl relative overflow-hidden"
             style={{ background: 'var(--card-bg)', border: '1px solid var(--glass-border)' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#00f5d4]/5 via-[#8b5cf6]/5 to-[#f472b6]/5" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#00f5d4]/5 via-[#c41e3a]/5 to-[#00d4aa]/5" />
             <div className="relative z-10 text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display" style={{ color: 'var(--text)' }}>
                 Ready to <span className="gradient-text">elevate</span> your brand?

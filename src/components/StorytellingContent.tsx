@@ -26,7 +26,7 @@ const skills = [
   { name: "Meta Business Suite", color: "#0081FB" },
   { name: "Google Ads", color: "#34A853" },
   { name: "Google Analytics", color: "#E37400" },
-  { name: "SEO/AEO/GEO", color: "#00F5D4" },
+  { name: "SEO/AEO/GEO", color: "#ff6b00" },
   { name: "HTML/CSS/JS", color: "#F7DF1E" },
   { name: "React.js", color: "#61DAFB" },
   { name: "Three.js", color: "#4353FF" },
@@ -128,7 +128,7 @@ function ScrollProgress() {
   
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00f5d4] via-purple-500 to-[#f472b6] origin-left z-50"
+      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00f5d4] via-purple-500 to-[#00d4aa] origin-left z-50"
       style={{ scaleX }}
     />
   )

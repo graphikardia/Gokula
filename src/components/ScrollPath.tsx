@@ -11,7 +11,7 @@ export default function ScrollPath() {
       <svg width="200" height="800" viewBox="0 0 200 800">
         <motion.path
           d="M100 0 C140 200 60 400 100 800"
-          stroke="#00F5D4"
+          stroke="#ff6b00"
           strokeWidth={3}
           fill="none"
           style={{ pathLength: d }}

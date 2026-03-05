@@ -87,7 +87,7 @@ function AnimatedMesh() {
     <>
       <mesh ref={meshRef} position={[5, 3, -5]}>
         <icosahedronGeometry args={[1.5, 0]} />
-        <meshBasicMaterial color="#8b5cf6" wireframe transparent opacity={0.15} />
+        <meshBasicMaterial color="#c41e3a" wireframe transparent opacity={0.15} />
       </mesh>
       <mesh ref={ringRef} position={[-5, -3, -8]}>
         <torusGeometry args={[2, 0.02, 16, 100]} />

@@ -2,21 +2,21 @@ import { Link } from "react-router-dom"
 
 export default function Footer() {
   return (
-    <footer className="py-16 px-6 border-t border-white/10">
+    <footer className="py-16 px-6 border-t" style={{ borderColor: 'var(--border)', background: 'var(--bg-secondary)' }}>
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">
-              <span className="text-[#00F5D4]">Geetha</span> Gokula P
+            <h3 className="text-2xl font-bold mb-4 font-display">
+              <span style={{ color: '#ff6b00' }}>⚔️</span> <span style={{ color: 'var(--text)' }}>GOKULA</span>
             </h3>
-            <p className="text-white/60 mb-6 max-w-sm">
-              Innovative Creative Lead specializing in authentic storytelling, 
-              high-impact video production, and strategic social media management.
+            <p className="mb-6 max-w-sm font-body" style={{ color: 'var(--text-secondary)' }}>
+              Creative Lead & Digital Storyteller. Crafting digital experiences that inspire and engage.
             </p>
             <div className="flex gap-4">
               <a
                 href="mailto:graphikardia@gmail.com"
-                className="text-white/40 hover:text-[#00F5D4] transition-colors"
+                className="p-2 rounded-full transition-colors"
+                style={{ background: 'var(--card-bg)', color: 'var(--text-secondary)' }}
                 aria-label="Email"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -25,7 +25,8 @@ export default function Footer() {
               </a>
               <a
                 href="tel:+917975594203"
-                className="text-white/40 hover:text-[#00F5D4] transition-colors"
+                className="p-2 rounded-full transition-colors"
+                style={{ background: 'var(--card-bg)', color: 'var(--text-secondary)' }}
                 aria-label="Phone"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,7 +37,8 @@ export default function Footer() {
                 href="https://linkedin.com/in/geetha-gokula-p"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/40 hover:text-[#00F5D4] transition-colors"
+                className="p-2 rounded-full transition-colors"
+                style={{ background: 'var(--card-bg)', color: 'var(--text-secondary)' }}
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -47,7 +49,8 @@ export default function Footer() {
                 href="https://instagram.com/graphikardia"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/40 hover:text-[#00F5D4] transition-colors"
+                className="p-2 rounded-full transition-colors"
+                style={{ background: 'var(--card-bg)', color: 'var(--text-secondary)' }}
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -60,17 +63,17 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-white/60">
-              <li><Link to="/case-studies" className="hover:text-[#00F5D4] transition-colors">Work</Link></li>
-              <li><Link to="/videos" className="hover:text-[#00F5D4] transition-colors">Videos</Link></li>
-              <li><Link to="/services" className="hover:text-[#00F5D4] transition-colors">Services</Link></li>
+              <li><Link to="/case-studies" className="hover:text-[#ff6b00] transition-colors">Work</Link></li>
+              <li><Link to="/videos" className="hover:text-[#ff6b00] transition-colors">Videos</Link></li>
+              <li><Link to="/services" className="hover:text-[#ff6b00] transition-colors">Services</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-white/60">
-              <li><a href="tel:+917975594203" className="hover:text-[#00F5D4] transition-colors">+91 7975594203</a></li>
-              <li><a href="mailto:graphikardia@gmail.com" className="hover:text-[#00F5D4] transition-colors">graphikardia@gmail.com</a></li>
+              <li><a href="tel:+917975594203" className="hover:text-[#ff6b00] transition-colors">+91 7975594203</a></li>
+              <li><a href="mailto:graphikardia@gmail.com" className="hover:text-[#ff6b00] transition-colors">graphikardia@gmail.com</a></li>
               <li>Bengaluru, Karnataka</li>
             </ul>
           </div>

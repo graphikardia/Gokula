@@ -24,13 +24,13 @@ function CyberGrid({ scroll }: { scroll: number }) {
       {Array.from({ length: 15 }).map((_, i) => (
         <mesh key={`h${i}`} position={[0, 0, (i - 7) * 4]}>
           <boxGeometry args={[30, 0.02, 0.02]} />
-          <meshBasicMaterial color="#00F5D4" transparent opacity={0.1} />
+          <meshBasicMaterial color="#ff6b00" transparent opacity={0.1} />
         </mesh>
       ))}
       {Array.from({ length: 10 }).map((_, i) => (
         <mesh key={`v${i}`} position={[(i - 5) * 5, 0, 0]}>
           <boxGeometry args={[0.02, 0.02, 30]} />
-          <meshBasicMaterial color="#00F5D4" transparent opacity={0.1} />
+          <meshBasicMaterial color="#ff6b00" transparent opacity={0.1} />
         </mesh>
       ))}
     </group>
@@ -269,8 +269,8 @@ function WaveRings({ scroll }: { scroll: number }) {
         <mesh key={i} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[2 + i * 1.5, 0.06, 8, 32]} />
           <meshStandardMaterial
-            color={i % 2 === 0 ? "#00F5D4" : "#8b5cf6"}
-            emissive={i % 2 === 0 ? "#00F5D4" : "#8b5cf6"}
+            color={i % 2 === 0 ? "#ff6b00" : "#c41e3a"}
+            emissive={i % 2 === 0 ? "#ff6b00" : "#c41e3a"}
             emissiveIntensity={0.4}
             transparent
             opacity={0.4 - i * 0.1}
@@ -301,9 +301,9 @@ function Scene({ scroll }: { scroll: number }) {
   return (
     <>
       <ambientLight intensity={0.2} />
-      <pointLight position={[10, 10, 10]} intensity={1.5} color="#00F5D4" />
-      <pointLight position={[-10, -10, -10]} intensity={1} color="#8b5cf6" />
-      <pointLight position={[0, 10, 5]} intensity={0.8} color="#f472b6" />
+      <pointLight position={[10, 10, 10]} intensity={1.5} color="#ff6b00" />
+      <pointLight position={[-10, -10, -10]} intensity={1} color="#c41e3a" />
+      <pointLight position={[0, 10, 5]} intensity={0.8} color="#00d4aa" />
       
       <CyberGrid scroll={scroll} />
       <DigitalRain scroll={scroll} />
@@ -315,16 +315,16 @@ function Scene({ scroll }: { scroll: number }) {
         size={1}
         speed={0.3}
         opacity={0.3}
-        color="#00F5D4"
+        color="#ff6b00"
       />
       <ToriiGate scroll={scroll} />
       <SimpleLantern position={[-6, 8, -15]} scroll={scroll} />
       <SimpleLantern position={[7, 5, -18]} scroll={scroll} />
       <WaveRings scroll={scroll} />
       
-      <SimpleFloatingShape position={[5, 2 - scroll * 8, -10]} color="#8b5cf6" scroll={scroll} delay={0} />
-      <SimpleFloatingShape position={[-4, 4 - scroll * 12, -12]} color="#f472b6" scroll={scroll} delay={1} />
-      <SimpleFloatingShape position={[3, -2 - scroll * 16, -14]} color="#00F5D4" scroll={scroll} delay={2} />
+      <SimpleFloatingShape position={[5, 2 - scroll * 8, -10]} color="#c41e3a" scroll={scroll} delay={0} />
+      <SimpleFloatingShape position={[-4, 4 - scroll * 12, -12]} color="#00d4aa" scroll={scroll} delay={1} />
+      <SimpleFloatingShape position={[3, -2 - scroll * 16, -14]} color="#ff6b00" scroll={scroll} delay={2} />
       <SimpleFloatingShape position={[-3, 0 - scroll * 20, -10]} color="#F59E0B" scroll={scroll} delay={0.5} />
       
       <fog attach="fog" args={['#050508', 10, 45]} />
@@ -388,7 +388,7 @@ export default function StorytellingHero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
               className="inline-block px-5 py-2 rounded-full glass-card mb-8 text-sm uppercase tracking-[0.3em]"
-              style={{ color: '#00F5D4', border: '1px solid rgba(0, 245, 212, 0.3)' }}
+              style={{ color: '#ff6b00', border: '1px solid rgba(0, 245, 212, 0.3)' }}
             >
               Available for Projects
             </motion.span>
@@ -446,8 +446,8 @@ export default function StorytellingHero() {
               key={i}
               className="w-1 h-1 rounded-full"
               style={{
-                backgroundColor: scrollProgress > i * 0.2 ? '#00F5D4' : 'rgba(255, 255, 255, 0.2)',
-                boxShadow: scrollProgress > i * 0.2 ? '0 0 10px #00F5D4' : 'none'
+                backgroundColor: scrollProgress > i * 0.2 ? '#ff6b00' : 'rgba(255, 255, 255, 0.2)',
+                boxShadow: scrollProgress > i * 0.2 ? '0 0 10px #ff6b00' : 'none'
               }}
             />
           ))}
@@ -463,7 +463,7 @@ export default function StorytellingHero() {
             className="h-0.5 rounded-full"
             style={{ 
               width: Math.min(scrollProgress * 200, 200),
-              background: 'linear-gradient(90deg, #00F5D4, #8b5cf6, #f472b6)',
+              background: 'linear-gradient(90deg, #ff6b00, #c41e3a, #00d4aa)',
               boxShadow: '0 0 20px rgba(0, 245, 212, 0.5)'
             }}
           />

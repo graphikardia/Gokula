@@ -175,7 +175,7 @@ export default function About() {
                   transition={{ delay: index * 0.1 }}
                   className="relative"
                 >
-                  <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#00f5d4] via-[#8b5cf6] to-transparent" />
+                  <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#00f5d4] via-[#c41e3a] to-transparent" />
                   <div className="ml-8 p-8 rounded-2xl glass-card hover-lift">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                       <div>

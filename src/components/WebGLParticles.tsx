@@ -75,7 +75,7 @@ function Particles({ mousePosition }: ParticlesProps) {
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
-        color="#00F5D4"
+        color="#ff6b00"
         opacity={0.8}
       />
     </Points>
@@ -111,15 +111,15 @@ function GlowOrbs({ mousePosition }: ParticlesProps) {
     <>
       <mesh ref={orb1Ref} position={[5, 3, -5]}>
         <sphereGeometry args={[0.8, 32, 32]} />
-        <meshBasicMaterial color="#00F5D4" transparent opacity={0.15} />
+        <meshBasicMaterial color="#ff6b00" transparent opacity={0.15} />
       </mesh>
       <mesh ref={orb2Ref} position={[-4, -2, -4]}>
         <sphereGeometry args={[0.6, 32, 32]} />
-        <meshBasicMaterial color="#8b5cf6" transparent opacity={0.12} />
+        <meshBasicMaterial color="#c41e3a" transparent opacity={0.12} />
       </mesh>
       <mesh ref={orb3Ref} position={[3, -3, -6]}>
         <sphereGeometry args={[0.5, 32, 32]} />
-        <meshBasicMaterial color="#f472b6" transparent opacity={0.1} />
+        <meshBasicMaterial color="#00d4aa" transparent opacity={0.1} />
       </mesh>
     </>
   )
@@ -140,7 +140,7 @@ function MouseGlow({ mousePosition }: ParticlesProps) {
     <pointLight
       ref={lightRef}
       intensity={3}
-      color="#00F5D4"
+      color="#ff6b00"
       distance={15}
     />
   )

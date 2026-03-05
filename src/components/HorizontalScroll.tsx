@@ -50,7 +50,7 @@ export default function HorizontalScroll() {
     <section ref={containerRef} className="h-[500vh] relative bg-black">
       <div className="sticky top-0 left-0 h-screen overflow-hidden">
         <div className="absolute top-8 left-8 z-20">
-          <span className="text-[#00F5D4] text-xs tracking-[0.3em] uppercase">My Process</span>
+          <span className="text-[#ff6b00] text-xs tracking-[0.3em] uppercase">My Process</span>
         </div>
         
         <div className="absolute top-8 right-8 z-20">
@@ -58,7 +58,7 @@ export default function HorizontalScroll() {
             <span className="text-white/40 text-xs">Progress</span>
             <div className="w-24 h-1 bg-white/10 rounded-full overflow-hidden">
               <motion.div 
-                className="h-full bg-[#00F5D4]"
+                className="h-full bg-[#ff6b00]"
                 style={{ scaleX: smoothProgress }}
               />
             </div>
@@ -77,7 +77,7 @@ export default function HorizontalScroll() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <span className="text-[#00F5D4] text-8xl font-bold opacity-20">
+                  <span className="text-[#ff6b00] text-8xl font-bold opacity-20">
                     0{index + 1}
                   </span>
                   <h2 className="text-5xl md:text-7xl font-bold text-white mt-4 mb-6">
@@ -94,7 +94,7 @@ export default function HorizontalScroll() {
                   transition={{ duration: 0.8, delay: 0.4 }}
                   className="bg-white/5 border border-white/10 rounded-2xl p-8"
                 >
-                  <div className="text-6xl font-bold text-[#00F5D4] mb-2">
+                  <div className="text-6xl font-bold text-[#ff6b00] mb-2">
                     {story.stat}
                   </div>
                   <div className="text-white/40 uppercase tracking-wider text-sm">
@@ -109,7 +109,7 @@ export default function HorizontalScroll() {
                           initial={{ scaleY: 0 }}
                           whileInView={{ scaleY: 1 }}
                           transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
-                          className="w-2 bg-[#00F5D4] rounded-full"
+                          className="w-2 bg-[#ff6b00] rounded-full"
                           style={{ height: 40 + Math.random() * 40 }}
                         />
                       ))}
@@ -130,7 +130,7 @@ export default function HorizontalScroll() {
                 backgroundColor: useTransform(
                   smoothProgress,
                   [i / stories.length, (i + 1) / stories.length],
-                  ["rgba(255,255,255,0.2)", "#00F5D4"]
+                  ["rgba(255,255,255,0.2)", "#ff6b00"]
                 )
               }}
             />

@@ -83,13 +83,13 @@ export default function FloatingShapes() {
       />
       <motion.div
         className="absolute w-1 h-1 rounded-full"
-        style={{ background: '#8b5cf6', top: '40%', left: '60%' }}
+        style={{ background: '#c41e3a', top: '40%', left: '60%' }}
         animate={{ opacity: [0.3, 0.7, 0.3], y: [0, -80, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
       <motion.div
         className="absolute w-1.5 h-1.5 rounded-full"
-        style={{ background: '#f472b6', top: '70%', left: '45%' }}
+        style={{ background: '#00d4aa', top: '70%', left: '45%' }}
         animate={{ opacity: [0.2, 0.6, 0.2], y: [0, -60, 0] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       />

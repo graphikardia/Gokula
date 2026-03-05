@@ -33,7 +33,7 @@ function ContactSphere() {
       <mesh ref={meshRef} position={[0, 0, 0]}>
         <icosahedronGeometry args={[1.5, 2]} />
         <MeshDistortMaterial
-          color="#00F5D4"
+          color="#ff6b00"
           envMapIntensity={0.8}
           clearcoat={1}
           clearcoatRoughness={0}
@@ -53,10 +53,10 @@ function ContactScene() {
   return (
     <>
       <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#00F5D4" />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8b5cf6" />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#ff6b00" />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#c41e3a" />
       <ContactSphere />
-      <Sparkles count={100} scale={8} size={2} speed={0.4} color="#00F5D4" />
+      <Sparkles count={100} scale={8} size={2} speed={0.4} color="#ff6b00" />
     </>
   )
 }
