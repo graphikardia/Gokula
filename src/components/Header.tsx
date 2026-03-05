@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
+import AnimatedLogo from "./AnimatedLogo"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -39,7 +40,7 @@ export default function Header() {
       <header className="fixed top-0 w-full z-40 py-4 px-6 backdrop-blur" style={{ background: 'var(--header-bg)' }}>
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link to="/" className="font-bold text-lg tracking-wider z-50" style={{ color: 'var(--text)' }}>
-            <span style={{ color: '#ff6b00' }}>⚔️</span> GOKULA
+            <AnimatedLogo size="sm" showText={false} />
           </Link>
           
           <nav className="hidden md:flex gap-6 items-center">
@@ -114,7 +115,7 @@ export default function Header() {
             className="text-2xl font-bold"
             style={{ color: 'var(--text)' }}
           >
-            <span className="text-[#ff6b00]">GEETHA</span> GOKULA P
+            <AnimatedLogo size="md" />
           </Link>
           <Link 
             to="/case-studies" 
