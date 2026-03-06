@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
             <h3 className="text-2xl font-bold mb-4 font-display">
-              <span style={{ color: '#ff6b00' }}>⚔️</span> <span style={{ color: 'var(--text)' }}>GOKULA</span>
+              <span style={{ color: '#ff1493' }}>⚔️</span> <span style={{ color: 'var(--text)' }}>GOKULA</span>
             </h3>
             <p className="mb-6 max-w-sm font-body" style={{ color: 'var(--text-secondary)' }}>
               Creative Lead & Digital Storyteller. Crafting digital experiences that inspire and engage.
@@ -63,17 +63,17 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-white/60">
-              <li><Link to="/case-studies" className="hover:text-[#ff6b00] transition-colors">Work</Link></li>
-              <li><Link to="/videos" className="hover:text-[#ff6b00] transition-colors">Videos</Link></li>
-              <li><Link to="/services" className="hover:text-[#ff6b00] transition-colors">Services</Link></li>
+              <li><Link to="/case-studies" className="hover:text-[#ff1493] transition-colors">Work</Link></li>
+              <li><Link to="/videos" className="hover:text-[#ff1493] transition-colors">Videos</Link></li>
+              <li><Link to="/services" className="hover:text-[#ff1493] transition-colors">Services</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-white/60">
-              <li><a href="tel:+917975594203" className="hover:text-[#ff6b00] transition-colors">+91 7975594203</a></li>
-              <li><a href="mailto:graphikardia@gmail.com" className="hover:text-[#ff6b00] transition-colors">graphikardia@gmail.com</a></li>
+              <li><a href="tel:+917975594203" className="hover:text-[#ff1493] transition-colors">+91 7975594203</a></li>
+              <li><a href="mailto:graphikardia@gmail.com" className="hover:text-[#ff1493] transition-colors">graphikardia@gmail.com</a></li>
               <li>Bengaluru, Karnataka</li>
             </ul>
           </div>

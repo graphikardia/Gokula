@@ -36,7 +36,7 @@ function StoryParticle({ scroll }: { scroll: number }) {
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
-        color="#ff6b00"
+        color="#ff1493"
         opacity={0.4}
       />
     </Points>
@@ -103,8 +103,8 @@ function FloatingElements({ scroll }: { scroll: number }) {
           {i % 3 === 1 && <octahedronGeometry args={[0.3, 0]} />}
           {i % 3 === 2 && <icosahedronGeometry args={[0.25, 0]} />}
           <meshStandardMaterial 
-            color={i % 2 === 0 ? "#ff6b00" : "#c41e3a"} 
-            emissive={i % 2 === 0 ? "#ff6b00" : "#c41e3a"}
+            color={i % 2 === 0 ? "#ff1493" : "#c41e3a"} 
+            emissive={i % 2 === 0 ? "#ff1493" : "#c41e3a"}
             emissiveIntensity={0.4}
             metalness={0.6}
             roughness={0.3}
@@ -140,7 +140,7 @@ function StoryGate({ scroll }: { scroll: number }) {
       </mesh>
       <mesh position={[0, 7.2, 0]}>
         <boxGeometry args={[8, 0.4, 0.4]} />
-        <meshStandardMaterial color="#ff6b00" emissive="#ff6b00" emissiveIntensity={0.3} />
+        <meshStandardMaterial color="#ff1493" emissive="#ff1493" emissiveIntensity={0.3} />
       </mesh>
       <mesh position={[0, 6, 0.1]}>
         <planeGeometry args={[4, 2]} />
@@ -173,7 +173,7 @@ function Scene({ scroll }: { scroll: number }) {
     <>
       <ambientLight intensity={0.2} />
       <directionalLight position={[5, 15, 10]} intensity={0.4} color="#fff5e6" />
-      <pointLight position={[15, 15, 10]} intensity={1.5} color="#ff6b00" />
+      <pointLight position={[15, 15, 10]} intensity={1.5} color="#ff1493" />
       <pointLight position={[-15, -10, -10]} intensity={1} color="#c41e3a" />
       <pointLight position={[0, 10, 5]} intensity={0.8} color="#00d4aa" />
       
@@ -185,7 +185,7 @@ function Scene({ scroll }: { scroll: number }) {
         scale={35}
         size={1}
         speed={0.2}
-        color="#ff6b00"
+        color="#ff1493"
         opacity={0.3}
       />
       <StoryGate scroll={scroll} />
@@ -215,7 +215,7 @@ function HeroContent({ scroll }: { scroll: number }) {
         <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full" 
           style={{ background: 'rgba(255,107,0,0.1)', border: '1px solid rgba(255,107,0,0.3)' }}>
           <span className="text-2xl">🍃</span>
-          <span className="text-sm uppercase tracking-[0.3em] font-medium" style={{ color: '#ff6b00' }}>
+          <span className="text-sm uppercase tracking-[0.3em] font-medium" style={{ color: '#ff1493' }}>
             The Journey Begins
           </span>
           <span className="text-2xl">⚔️</span>
@@ -312,7 +312,7 @@ export default function AnimeHero() {
             className="h-1 rounded-full"
             style={{ 
               width: Math.min(scrollProgress * 300, 300),
-              background: 'linear-gradient(90deg, #ff6b00, #c41e3a, #00d4aa)',
+              background: 'linear-gradient(90deg, #ff1493, #c41e3a, #00d4aa)',
               boxShadow: '0 0 20px rgba(255,107,0,0.5)'
             }}
           />

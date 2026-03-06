@@ -20,7 +20,7 @@ export const projects = [
     slug: "graphikardia-agency",
     title: "Graphikardia Digital Agency",
     category: "Digital Marketing Agency",
-    client: "Multiple Clients (Medella, Dr. Darshana, Dr. Raksha Madhu)",
+    client: "Multiple Healthcare Clients",
     role: "Founder & Lead",
     year: "2024 - Present",
     hero: "/assets/graphikardia.jpg",
@@ -31,23 +31,6 @@ export const projects = [
       { k: "Avg Reach Increase", v: "+93%" },
       { k: "Profile Activity", v: "+212%" },
       { k: "Unique Reach", v: "+40%" }
-    ]
-  },
-  {
-    slug: "medella-clinic",
-    title: "Medella Homoeo Clinic",
-    category: "Social Media Management",
-    client: "Medella Homoeo Clinic",
-    role: "Social Media Manager",
-    year: "Sep 2025 - Dec 2025",
-    hero: "/assets/medella.jpg",
-    video: "",
-    instagramUrl: "https://www.instagram.com/medellahomoeoclinic/",
-    summary: "Built Instagram presence from 700 to 18,000 views in 90 days with 93% reach increase.",
-    outcomes: [
-      { k: "Account Reach", v: "700 → 18,000" },
-      { k: "Reach Increase", v: "+93%" },
-      { k: "Profile Activity", v: "+212%" }
     ]
   },
   {

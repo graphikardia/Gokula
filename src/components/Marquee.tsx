@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 
 const clients = [
-  "Altius Hospital", "Medella Homoeo Clinic", "Dr. Darshana", 
+  "Altius Hospital", "Dr. Darshana", 
   "Dr. Raksha Madhu", "Koshys Group", "RANVITA 2024", 
   "YUVA Summit India", "CMR University", "Graphikardia",
   "Healthcare Marketing", "Brand Strategy", "Video Production"

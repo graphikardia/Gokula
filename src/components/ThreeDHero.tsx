@@ -33,7 +33,7 @@ function Particles() {
         sizeAttenuation={true}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
-        color="#ff6b00"
+        color="#ff1493"
         opacity={0.6}
       />
     </Points>
@@ -117,7 +117,7 @@ function TorusKnot() {
       <mesh ref={meshRef} position={[0, -2, -6]}>
         <torusKnotGeometry args={[0.8, 0.3, 128, 32]} />
         <MeshDistortMaterial
-          color="#ff6b00"
+          color="#ff1493"
           envMapIntensity={0.5}
           clearcoat={1}
           clearcoatRoughness={0}
@@ -137,7 +137,7 @@ function Scene() {
   return (
     <>
       <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#ff6b00" />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#ff1493" />
       <pointLight position={[-10, -10, -10]} intensity={0.5} color="#c41e3a" />
       <Particles />
       <DistortedSphere />

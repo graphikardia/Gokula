@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
@@ -52,12 +53,12 @@ const caseStudies: CaseStudy[] = [
     subtitle: "Multi-Client Digital Marketing",
     category: "Digital Marketing Agency",
     client: "Graphikardia (Own Startup)",
-    role: "Founder & Lead",
+    role: "founder & Lead",
     period: "2024 - Present",
     hero: "agency",
     summary: "Full-service digital marketing agency serving healthcare professionals, wellness brands, and lifestyle businesses with comprehensive social media management and brand strategy.",
     challenge: "Building a digital marketing agency from scratch in a competitive market while managing multiple client expectations and delivering measurable results. Each client had unique requirements - from startups building their brand presence to established practitioners looking to expand their digital footprint.",
-    solution: "I developed a systematic approach for each client: (1) Initial brand audit and strategy development, (2) Content calendar creation tailored to each client's audience, (3) High-quality visual content production including videos, graphics, and reels, (4) Platform-specific optimization for Instagram, Facebook, and Google, (5) Regular performance tracking and strategy adjustments, (6) Community management and engagement strategies. Key clients include Medella Homoeo Clinic, Dr. Darshana (Your Lifestyle Doctor), Dr. Raksha Madhu (Obstetrician & Gynecologist), and several other healthcare practitioners.",
+    solution: "I developed a systematic approach for each client: (1) Initial brand audit and strategy development, (2) Content calendar creation tailored to each client's audience, (3) High-quality visual content production including videos, graphics, and reels, (4) Platform-specific optimization for Instagram, Facebook, and Google, (5) Regular performance tracking and strategy adjustments, (6) Community management and engagement strategies.",
     results: [
       { value: "93%", label: "Average Reach Increase", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 4" },
       { value: "212%", label: "Profile Activity Surge", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
@@ -71,27 +72,6 @@ const caseStudies: CaseStudy[] = [
       name: "Dr. Raksha Madhu",
       role: "Obstetrician & Gynecologist"
     }
-  },
-  {
-    slug: "medella-clinic",
-    title: "Medella Homoeo Clinic",
-    subtitle: "Startup to 18K Views",
-    category: "Social Media Management",
-    client: "Medella Homoeo Clinic",
-    role: "Social Media Manager",
-    period: "Sep 2025 - Dec 2025",
-    hero: "clinic",
-    summary: "Built Instagram presence from ground up for a homeopathy clinic, achieving exceptional growth in just 90 days.",
-    challenge: "Medella Homoeo Clinic had minimal online presence with only 700 Instagram followers and almost zero engagement. The challenge was to establish a strong digital presence for a traditional healthcare practice while maintaining professional credibility.",
-    solution: "I created a complete digital strategy: (1) Professional profile optimization with relevant keywords and contact info, (2) Content strategy focusing on health education and treatment benefits, (3) Regular posting schedule with high-quality visuals, (4) Community engagement through comments and messages, (5) Collaborations with related healthcare accounts, (6) Health awareness campaigns during relevant observances.",
-    results: [
-      { value: "700 → 18K", label: "Account Reach Growth", icon: "M13 7h8m0 0v8m0-8l-8 8-4-4-6 4" },
-      { value: "93%", label: "Reach Increase", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" },
-      { value: "212%", label: "Profile Activity", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
-      { value: "90 Days", label: "Transformation Period", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" }
-    ],
-    services: ["Instagram Management", "Content Strategy", "Graphics Design", "Reels Creation", "Google My Business", "Engagement Management"],
-    deliverables: ["90-Day Growth Strategy", "100+ Posts", "30+ Reels", "Profile Optimization", "Weekly Reports"]
   },
   {
     slug: "koshys-institution",
@@ -116,6 +96,36 @@ const caseStudies: CaseStudy[] = [
   }
 ]
 
+function FloatingKanji({ char, delay }: { char: string; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.3 }}
+      animate={{ 
+        opacity: [0, 0.04, 0.02, 0.04, 0],
+        scale: [0.3, 1, 1.1, 1, 0.3],
+      }}
+      transition={{ 
+        duration: 22, 
+        delay,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+      style={{
+        position: "absolute",
+        fontSize: "clamp(10rem, 25vw, 20rem)",
+        fontWeight: 100,
+        color: "#ff1493",
+        fontFamily: "var(--font-jp-serif)",
+        pointerEvents: "none",
+        zIndex: 0,
+        textShadow: "0 0 50px rgba(255,20,147,0.2)",
+      }}
+    >
+      {char}
+    </motion.div>
+  )
+}
+
 function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <motion.div
@@ -131,16 +141,23 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
 }
 
 export default function CaseStudies() {
+  const kanji = ["創", "美", "雅", "魂", "空"]
+
   return (
-    <section className="min-h-screen py-24 px-6" style={{ background: 'var(--bg)' }}>
-      <div className="max-w-7xl mx-auto">
+    <section className="min-h-screen py-24 px-4 md:px-6" style={{ background: 'var(--bg)', position: 'relative', overflow: 'hidden' }}>
+      {kanji.map((char, i) => (
+        <FloatingKanji key={i} char={char} delay={i * 3} />
+      ))}
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <AnimatedSection className="mb-20">
           <div className="text-center">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[#00f5d4] uppercase tracking-wider text-sm font-body"
+              className="uppercase tracking-[0.3em] text-sm"
+              style={{ color: "#ff1493", lineHeight: 2 }}
             >
               Portfolio
             </motion.span>
@@ -149,18 +166,18 @@ export default function CaseStudies() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold mt-4 font-display"
-              style={{ color: 'var(--text)' }}
+              className="text-5xl md:text-7xl font-bold mt-4"
+              style={{ color: '#f0e6d3', lineHeight: 1.2 }}
             >
-              Case <span className="gradient-text">Studies</span>
+              Case <span style={{ color: '#ff1493' }}>Studies</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-xl mt-6 max-w-3xl mx-auto font-body"
-              style={{ color: 'var(--text-secondary)' }}
+              className="text-xl mt-6 max-w-3xl mx-auto"
+              style={{ color: 'rgba(240,230,211,0.6)', lineHeight: 1.8 }}
             >
               Detailed projects showcasing measurable results, creative strategies, and successful outcomes 
               across healthcare, education, and digital marketing.
@@ -168,7 +185,7 @@ export default function CaseStudies() {
           </div>
         </AnimatedSection>
 
-        <div className="space-y-20">
+        <div className="space-y-16">
           {caseStudies.map((study, index) => (
             <AnimatedSection key={study.slug}>
               <motion.article
@@ -176,13 +193,16 @@ export default function CaseStudies() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="rounded-3xl overflow-hidden glass-card hover-lift"
-                style={{ border: '1px solid var(--glass-border)' }}
+                className="rounded-3xl overflow-hidden"
+                style={{ 
+                  background: "rgba(255,20,147,0.03)",
+                  border: "1px solid rgba(255,20,147,0.1)",
+                }}
               >
                 <div className="grid lg:grid-cols-5">
                   <div 
                     className={`lg:col-span-2 aspect-video lg:aspect-auto flex items-center justify-center relative overflow-hidden`}
-                    style={{ background: `linear-gradient(135deg, ${index % 2 === 0 ? 'rgba(0, 245, 212, 0.1)' : 'rgba(139, 92, 246, 0.1)'}, rgba(0, 0, 0, 0.2))` }}
+                    style={{ background: "rgba(255,20,147,0.05)" }}
                   >
                     <motion.img
                       src={study.slug === "altius-hospital" ? "https://qanomed.com/img/hospitals/altius-sripada-hospitals-hbr-layout/1.png" : "https://lookaside.fbsbx.com/lookaside/crawler/instagram/graphikardia/profile_pic.jpg"}
@@ -191,15 +211,21 @@ export default function CaseStudies() {
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.5 }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent" />
+                    <div 
+                      className="absolute inset-0"
+                      style={{
+                        background: "linear-gradient(to top, var(--bg) 0%, transparent 50%)",
+                      }}
+                    />
                   </div>
                   
-                  <div className="lg:col-span-3 p-8 lg:p-12">
+                  <div className="lg:col-span-3 p-7 lg:p-10">
                     <motion.span
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      className="text-[#00f5d4] text-xs uppercase tracking-wider font-body"
+                      className="text-xs uppercase tracking-wider"
+                      style={{ color: "#ff1493", lineHeight: 1.5 }}
                     >
                       {study.category}
                     </motion.span>
@@ -209,17 +235,17 @@ export default function CaseStudies() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.1 }}
-                      className="text-2xl lg:text-3xl font-bold mt-2 mb-2 font-display"
-                      style={{ color: 'var(--text)' }}
+                      className="text-2xl lg:text-3xl font-bold mt-2 mb-2"
+                      style={{ color: '#f0e6d3', lineHeight: 1.3 }}
                     >
                       {study.title}
                     </motion.h2>
                     
-                    <p className="text-lg mb-8 font-body" style={{ color: 'var(--text-secondary)' }}>
+                    <p className="text-lg mb-6" style={{ color: 'rgba(240,230,211,0.6)', lineHeight: 1.7 }}>
                       {study.subtitle}
                     </p>
                     
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
                       {study.results.slice(0, 4).map((result, i) => (
                         <motion.div 
                           key={i}
@@ -228,15 +254,19 @@ export default function CaseStudies() {
                           viewport={{ once: true }}
                           transition={{ delay: 0.1 * i }}
                           whileHover={{ scale: 1.05 }}
-                          className="text-center p-4 rounded-xl glass-card"
+                          className="text-center p-3 rounded-xl"
+                          style={{ 
+                            background: "rgba(255,20,147,0.05)",
+                            border: "1px solid rgba(255,20,147,0.1)",
+                          }}
                         >
-                          <div className="text-xl lg:text-2xl font-bold gradient-text">{result.value}</div>
-                          <div className="text-xs mt-1 font-body" style={{ color: 'var(--text-secondary)' }}>{result.label}</div>
+                          <div className="text-xl lg:text-2xl font-bold" style={{ color: '#ff1493', lineHeight: 1.3 }}>{result.value}</div>
+                          <div className="text-xs mt-1" style={{ color: 'rgba(240,230,211,0.5)', lineHeight: 1.5 }}>{result.label}</div>
                         </motion.div>
                       ))}
                     </div>
 
-                    <div className="flex flex-wrap gap-3 mb-8">
+                    <div className="flex flex-wrap gap-2 mb-6">
                       {study.services.slice(0, 4).map((service, i) => (
                         <motion.span 
                           key={i}
@@ -244,14 +274,19 @@ export default function CaseStudies() {
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ delay: 0.05 * i }}
-                          className="px-3 py-1 rounded-full text-sm font-body glass-card"
-                          style={{ color: 'var(--text-secondary)' }}
+                          className="px-3 py-1 rounded-full text-xs"
+                          style={{ 
+                            background: "rgba(255,20,147,0.08)",
+                            border: "1px solid rgba(255,20,147,0.15)",
+                            color: 'rgba(240,230,211,0.6)',
+                            lineHeight: 1.5,
+                          }}
                         >
                           {service}
                         </motion.span>
                       ))}
                       {study.services.length > 4 && (
-                        <span className="px-3 py-1 rounded-full text-sm font-body" style={{ color: 'var(--text-muted)' }}>
+                        <span className="px-3 py-1 rounded-full text-xs" style={{ color: 'rgba(240,230,211,0.3)', lineHeight: 1.5 }}>
                           +{study.services.length - 4} more
                         </span>
                       )}
@@ -259,9 +294,14 @@ export default function CaseStudies() {
 
                     <Link
                       to={`/projects/${study.slug}`}
-                      className="inline-flex items-center gap-2 text-[#00f5d4] hover:gap-4 transition-all font-medium font-body"
+                      className="inline-flex items-center gap-2 text-sm font-medium transition-all duration-300"
+                      style={{ color: '#ff1493' }}
                     >
-                      View Full Case Study <span>→</span>
+                      View Full Case Study 
+                      <motion.span
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >→</motion.span>
                     </Link>
                   </div>
                 </div>
@@ -275,19 +315,28 @@ export default function CaseStudies() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="p-12 rounded-3xl text-center glass-card border-gradient"
+            className="p-10 rounded-3xl text-center"
+            style={{ 
+              background: "rgba(255,20,147,0.03)",
+              border: '1px solid rgba(255,20,147,0.1)',
+            }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display" style={{ color: 'var(--text)' }}>
-              Ready to <span className="gradient-text">Transform</span> Your Digital Presence?
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#f0e6d3', lineHeight: 1.3 }}>
+              Ready to <span style={{ color: '#ff1493' }}>Transform</span> Your Digital Presence?
             </h2>
-            <p className="text-lg mb-8 max-w-2xl mx-auto font-body" style={{ color: 'var(--text-secondary)' }}>
+            <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: 'rgba(240,230,211,0.6)', lineHeight: 1.8 }}>
               Let's discuss how we can elevate your brand with strategic digital marketing and compelling content.
             </p>
             <motion.a
               href="mailto:graphikardia@gmail.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-block px-8 py-4 bg-[#00f5d4] text-black font-bold rounded-full hover-lift glow-effect font-body"
+              className="inline-block px-8 py-4 font-bold rounded-full"
+              style={{
+                background: "linear-gradient(135deg, #ff1493 0%, #ff69b4 100%)",
+                color: "white",
+                boxShadow: "0 0 30px rgba(255,20,147,0.4)",
+              }}
             >
               Get in Touch
             </motion.a>

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface PreloaderProps {
@@ -7,10 +7,11 @@ interface PreloaderProps {
 
 function InkSplatter({ delay }: { delay: number }) {
   const shapes = [
-    { width: 60, height: 40, x: 10, y: 20 },
-    { width: 80, height: 50, x: 70, y: 60 },
-    { width: 45, height: 30, x: 80, y: 10 },
-    { width: 55, height: 45, x: 5, y: 70 },
+    { width: 80, height: 50, x: 5, y: 15 },
+    { width: 100, height: 60, x: 65, y: 55 },
+    { width: 55, height: 35, x: 75, y: 8 },
+    { width: 70, height: 50, x: 3, y: 65 },
+    { width: 45, height: 30, x: 45, y: 80 },
   ]
 
   return (
@@ -18,25 +19,19 @@ function InkSplatter({ delay }: { delay: number }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay }}
-      className="absolute"
-      style={{
-        width: "100%",
-        height: "100%",
-        top: 0,
-        left: 0,
-      }}
+      className="absolute inset-0"
     >
       {shapes.map((shape, i) => (
         <motion.div
           key={i}
           initial={{ scale: 0, opacity: 0 }}
           animate={{ 
-            scale: [0, 1.2, 1],
+            scale: [0, 1.3, 1],
             opacity: [0, 0.3, 0.2]
           }}
           transition={{ 
-            duration: 2, 
-            delay: delay + i * 0.3,
+            duration: 2.5, 
+            delay: delay + i * 0.25,
             ease: "easeOut"
           }}
           style={{
@@ -45,9 +40,9 @@ function InkSplatter({ delay }: { delay: number }) {
             height: shape.height,
             left: `${shape.x}%`,
             top: `${shape.y}%`,
-            background: "rgba(255, 107, 0, 0.15)",
-            borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-            filter: "blur(8px)",
+            background: "rgba(255, 20, 147, 0.2)",
+            borderRadius: "65% 35% 70% 30% / 30% 70% 30% 70%",
+            filter: "blur(15px)",
           }}
         />
       ))}
@@ -58,13 +53,14 @@ function InkSplatter({ delay }: { delay: number }) {
 function Lantern({ x, y, size, delay }: { x: string; y: string; size: number; delay: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -30 }}
       animate={{ 
-        opacity: [0, 0.6, 0.4, 0.6, 0],
-        y: [0, 8, 0, 8, 0]
+        opacity: [0, 0.7, 0.5, 0.7, 0.3],
+        y: [0, 12, 0, 12, 0],
+        x: [0, 5, 0, -5, 0]
       }}
       transition={{ 
-        duration: 5, 
+        duration: 6, 
         delay,
         repeat: Infinity,
         ease: "easeInOut"
@@ -79,35 +75,51 @@ function Lantern({ x, y, size, delay }: { x: string; y: string; size: number; de
       <div
         style={{
           width: size,
-          height: size * 1.6,
-          background: "linear-gradient(180deg, rgba(255,80,30,0.4) 0%, rgba(255,120,50,0.3) 100%)",
+          height: size * 1.5,
+          background: "linear-gradient(180deg, rgba(255,60,20,0.5) 0%, rgba(255,100,40,0.35) 100%)",
           borderRadius: "40% 40% 45% 45%",
-          boxShadow: `0 0 ${size * 1.5}px rgba(255,100,50,0.3), inset 0 -${size * 0.3}px rgba(0,0,0,0.2)`,
-          border: "1px solid rgba(255,150,100,0.2)",
+          boxShadow: `
+            0 0 ${size * 2}px rgba(255,80,30,0.4),
+            0 0 ${size * 4}px rgba(255,100,50,0.2),
+            inset 0 -${size * 0.25}px rgba(0,0,0,0.3),
+            inset 0 ${size * 0.3}px rgba(255,200,150,0.2)
+          `,
+          border: "1px solid rgba(255,150,100,0.25)",
         }}
       >
         <div
           style={{
             position: "absolute",
-            top: -8,
+            top: -6,
             left: "50%",
             transform: "translateX(-50%)",
-            width: size * 0.3,
-            height: 8,
-            background: "rgba(80,40,20,0.8)",
+            width: size * 0.25,
+            height: 6,
+            background: "rgba(60,30,15,0.9)",
             borderRadius: "2px",
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: -6,
+            bottom: -5,
             left: "50%",
             transform: "translateX(-50%)",
-            width: size * 0.25,
-            height: 6,
-            background: "rgba(80,40,20,0.8)",
+            width: size * 0.2,
+            height: 5,
+            background: "rgba(60,30,15,0.9)",
             borderRadius: "2px",
+          }}
+        />
+        <motion.div
+          style={{
+            position: "absolute",
+            top: "30%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "60%",
+            height: "40%",
+            background: "radial-gradient(ellipse at center, rgba(255,200,150,0.4) 0%, transparent 70%)",
           }}
         />
       </div>
@@ -115,33 +127,40 @@ function Lantern({ x, y, size, delay }: { x: string; y: string; size: number; de
   )
 }
 
-function FallingPetal({ delay }: { delay: number }) {
+function SakuraPetal({ delay }: { delay: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [size] = useState(() => 6 + Math.random() * 10)
+  const [startX] = useState(() => Math.random() * 100)
+  
   return (
     <motion.div
+      ref={ref}
       initial={{ 
-        x: -20, 
+        x: `${startX}vw`, 
         y: -20,
         rotate: 0,
-        opacity: 0 
+        opacity: 0,
+        scale: 0
       }}
       animate={{ 
-        x: [null, 100, 200],
-        y: [null, 400, 500],
-        rotate: [0, 360, 720],
-        opacity: [0, 0.8, 0]
+        y: [null, window.innerHeight + 50],
+        x: [null, `${startX + (Math.random() * 40 - 20)}vw`],
+        rotate: [0, 360 * (Math.random() > 0.5 ? 1 : -1) * 2],
+        opacity: [0, 0.9, 0.6, 0],
+        scale: [0, 1, 1, 0.5]
       }}
       transition={{ 
-        duration: 12 + Math.random() * 8, 
+        duration: 15 + Math.random() * 10, 
         delay,
         repeat: Infinity,
         ease: "linear"
       }}
       style={{
         position: "absolute",
-        width: 8 + Math.random() * 6,
-        height: 8 + Math.random() * 6,
-        background: "rgba(255, 150, 180, 0.6)",
-        borderRadius: "50%",
+        width: size,
+        height: size,
+        background: `rgba(255, ${150 + Math.random() * 50}, ${180 + Math.random() * 40}, ${0.4 + Math.random() * 0.4})`,
+        borderRadius: "50% 0 50% 50%",
         filter: "blur(1px)",
         zIndex: 2,
       }}
@@ -149,40 +168,124 @@ function FallingPetal({ delay }: { delay: number }) {
   )
 }
 
-function BrushStroke() {
+function FloatingKanji({ char, x, y, delay }: { char: string; x: string; y: string; delay: number }) {
   return (
-    <svg 
-      className="absolute inset-0 w-full h-full pointer-events-none" 
-      style={{ opacity: 0.1 }}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.3, rotate: -20 }}
+      animate={{ 
+        opacity: [0, 0.12, 0.06, 0.12, 0],
+        scale: [0.3, 1, 1.1, 1, 0.3],
+        rotate: [0, 8, -8, 8, 0],
+        y: [0, -15, 0, -15, 0]
+      }}
+      transition={{ 
+        duration: 12, 
+        delay,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+      style={{
+        position: "absolute",
+        left: x,
+        top: y,
+        fontSize: "clamp(4rem, 12vw, 10rem)",
+        fontWeight: 300,
+        color: "#ff1493",
+        fontFamily: "var(--font-jp-serif)",
+        pointerEvents: "none",
+        textShadow: "0 0 30px rgba(255,107,0,0.3)",
+        zIndex: 1,
+      }}
     >
-      <motion.path
-        d="M0,100 Q200,80 400,150 T800,100 T1200,120"
+      {char}
+    </motion.div>
+  )
+}
+
+function EnsoCircle() {
+  return (
+    <motion.svg
+      className="absolute"
+      style={{
+        width: 400,
+        height: 400,
+        opacity: 0.08,
+        right: "-10%",
+        bottom: "-5%",
+      }}
+      viewBox="0 0 200 200"
+    >
+      <motion.circle
+        cx="100"
+        cy="100"
+        r="90"
         fill="none"
-        stroke="#ff6b00"
-        strokeWidth="2"
+        stroke="#ff1493"
+        strokeWidth="3"
+        strokeLinecap="round"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={{ pathLength: 1, opacity: 1 }}
         transition={{ duration: 3, ease: "easeInOut" }}
       />
       <motion.path
-        d="M0,300 Q300,280 600,320 T1200,300"
+        d="M100 10 Q100 100 190 100"
         fill="none"
-        stroke="#ff6b00"
-        strokeWidth="1.5"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 3, delay: 0.5, ease: "easeInOut" }}
+        stroke="#ff1493"
+        strokeWidth="2"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 2, delay: 1.5 }}
       />
-      <motion.path
-        d="M0,500 Q400,480 800,520 T1200,500"
-        fill="none"
-        stroke="#ff6b00"
-        strokeWidth="1"
-        initial={{ pathLength: 0, opacity: 0 }}
-        animate={{ pathLength: 1, opacity: 1 }}
-        transition={{ duration: 3, delay: 1, ease: "easeInOut" }}
-      />
-    </svg>
+    </motion.svg>
+  )
+}
+
+function ToriiGate() {
+  return (
+    <motion.div
+      className="absolute"
+      style={{
+        width: 200,
+        height: 120,
+        top: "8%",
+        left: "8%",
+        opacity: 0.06,
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.06 }}
+      transition={{ delay: 1 }}
+    >
+      <svg viewBox="0 0 200 120" fill="none">
+        <motion.rect
+          x="20" y="20" width="12" height="100"
+          fill="#ff1493"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        />
+        <motion.rect
+          x="168" y="20" width="12" height="100"
+          fill="#ff1493"
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1, delay: 0.7 }}
+        />
+        <motion.rect
+          x="10" y="30" width="180" height="12"
+          fill="#ff1493"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.2, delay: 0.3 }}
+        />
+        <motion.rect
+          x="5" y="50" width="190" height="10"
+          fill="#ff1493"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+        />
+      </svg>
+    </motion.div>
   )
 }
 
@@ -193,14 +296,21 @@ function LogoMark() {
       height="100"
       viewBox="0 0 100 100"
       className="overflow-visible"
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ scale: 0, rotate: -180 }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
     >
+      <defs>
+        <linearGradient id="preloaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#ff1493" />
+          <stop offset="50%" stopColor="#ff4444" />
+          <stop offset="100%" stopColor="#ff1493" />
+        </linearGradient>
+      </defs>
       <motion.path
         d="M25 70 L25 30 L50 30 L50 45 L40 45 L40 70"
         fill="none"
-        stroke="#ff6b00"
+        stroke="url(#preloaderGrad)"
         strokeWidth="6"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -211,7 +321,7 @@ function LogoMark() {
       <motion.path
         d="M55 30 L55 70 L80 70"
         fill="none"
-        stroke="#ff6b00"
+        stroke="url(#preloaderGrad)"
         strokeWidth="6"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -223,28 +333,35 @@ function LogoMark() {
         cx="70"
         cy="40"
         r="8"
-        fill="#ff6b00"
+        fill="url(#preloaderGrad)"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1.6, type: "spring" }}
       />
-      <motion.path
-        d="M15 85 L85 85"
-        stroke="#ff6b00"
-        strokeWidth="2"
-        strokeLinecap="round"
+      <motion.circle
+        cx="50"
+        cy="50"
+        r="45"
+        fill="none"
+        stroke="rgba(255,107,0,0.2)"
+        strokeWidth="1"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
-        transition={{ duration: 0.8, delay: 1.8 }}
+        transition={{ duration: 2, delay: 0.5 }}
       />
     </motion.svg>
   )
 }
 
 export default function Preloader({ onComplete }: PreloaderProps) {
-  const [isReady, setIsReady] = useState(false)
   const [isExiting, setIsExiting] = useState(false)
   const [hovered, setHovered] = useState(false)
+  const [buttonVisible, setButtonVisible] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setButtonVisible(true), 2500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleEnter = () => {
     setIsExiting(true)
@@ -254,11 +371,21 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   }
 
   const lanterns = [
-    { x: "5%", y: "10%", size: 25, delay: 0 },
-    { x: "80%", y: "8%", size: 30, delay: 1 },
-    { x: "60%", y: "50%", size: 20, delay: 2 },
-    { x: "15%", y: "60%", size: 22, delay: 0.5 },
-    { x: "85%", y: "70%", size: 18, delay: 1.5 },
+    { x: "3%", y: "8%", size: 28, delay: 0 },
+    { x: "88%", y: "5%", size: 32, delay: 0.8 },
+    { x: "75%", y: "45%", size: 22, delay: 1.6 },
+    { x: "8%", y: "55%", size: 25, delay: 2.2 },
+    { x: "92%", y: "70%", size: 20, delay: 0.4 },
+    { x: "45%", y: "3%", size: 18, delay: 1.2 },
+  ]
+
+  const kanjiPositions = [
+    { char: "創", x: "5%", y: "15%", delay: 0.5 },
+    { char: "美", x: "75%", y: "20%", delay: 1.5 },
+    { char: "魂", x: "60%", y: "60%", delay: 2.5 },
+    { char: "雅", x: "10%", y: "70%", delay: 3 },
+    { char: "空", x: "80%", y: "75%", delay: 0.8 },
+    { char: "月", x: "40%", y: "65%", delay: 2 },
   ]
 
   return (
@@ -270,38 +397,45 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           transition={{ duration: 0.6, ease: "easeInOut" }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden"
           style={{ 
-            background: "#0a0a0a",
+            background: "linear-gradient(180deg, #12081d 0%, #1a0a20 50%, #0d0612 100%)",
           }}
         >
-          <BrushStroke />
-          <InkSplatter delay={0.2} />
+          <ToriiGate />
+          <EnsoCircle />
+          <InkSplatter delay={0.3} />
           
           {lanterns.map((lantern, i) => (
             <Lantern key={i} {...lantern} />
           ))}
 
-          {[...Array(15)].map((_, i) => (
-            <FallingPetal key={i} delay={i * 0.8} />
+          {[...Array(25)].map((_, i) => (
+            <SakuraPetal key={i} delay={i * 0.5} />
+          ))}
+
+          {kanjiPositions.map((item, i) => (
+            <FloatingKanji key={i} {...item} />
           ))}
 
           <motion.div
             className="relative z-10 flex flex-col items-center"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             <LogoMark />
             
             <motion.h1
-              initial={{ opacity: 0, letterSpacing: "0.5em" }}
-              animate={{ opacity: 1, letterSpacing: "0.3em" }}
-              transition={{ duration: 1, delay: 0.8 }}
+              initial={{ opacity: 0, letterSpacing: "0.6em" }}
+              animate={{ opacity: 1, letterSpacing: "0.35em" }}
+              transition={{ duration: 1.2, delay: 0.8 }}
               style={{
-                fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
-                fontWeight: 300,
-                color: "#f0e6d3",
+                fontSize: "clamp(2.2rem, 7vw, 4rem)",
+                fontWeight: 700,
+                color: "#ffffff",
                 marginTop: "1.5rem",
-                fontFamily: "'Noto Sans JP', sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
+                lineHeight: 1.2,
+                textShadow: "0 0 40px rgba(255,20,147,0.5), 0 0 80px rgba(255,20,147,0.3)",
               }}
             >
               GOKULA
@@ -309,95 +443,119 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
             <motion.p
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.4 }}
               style={{
-                fontSize: "0.75rem",
-                color: "#ff6b00",
-                marginTop: "0.5rem",
+                fontSize: "clamp(0.8rem, 2.5vw, 1.1rem)",
+                color: "#ff69b4",
+                marginTop: "0.8rem",
                 letterSpacing: "0.4em",
-                fontFamily: "monospace",
+                fontFamily: "var(--font-jp)",
+                lineHeight: 1.6,
+                textShadow: "0 0 20px rgba(255,105,180,0.5)",
               }}
             >
-              クリエイティブ
+              クリエイティブスタジオ
             </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2 }}
+            className="text-center px-8"
+            style={{
+              position: "absolute",
+              bottom: "28%",
+              zIndex: 10,
+            }}
+          >
+            <p style={{
+              color: "#ff69b4",
+              fontSize: "clamp(0.75rem, 2.2vw, 1rem)",
+              letterSpacing: "0.2em",
+              fontFamily: "var(--font-jp-rounded)",
+              lineHeight: 2,
+              marginBottom: "1.5rem",
+              textShadow: "0 0 15px rgba(255,105,180,0.4)",
+              fontWeight: 500,
+            }}>
+              hover around to see what's hidden ✦
+              <br />
+              <span style={{ fontSize: "0.75em", opacity: 0.85, color: "#ff1493" }}>
+                周りをホバーして隠されたものを探せ
+              </span>
+            </p>
           </motion.div>
 
           <motion.button
             onClick={handleEnter}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ 
-              opacity: isReady ? 1 : 0,
+              opacity: buttonVisible ? 1 : 0,
               y: 0,
-              scale: hovered ? 1.05 : 1
+              scale: hovered ? 1.08 : 1
             }}
             transition={{ 
               duration: 0.5,
-              delay: isReady ? 0 : 2
+              delay: buttonVisible ? 0 : 0
             }}
             style={{
               position: "absolute",
-              bottom: "15%",
-              padding: "1rem 3rem",
-              background: "transparent",
-              border: "1px solid #ff6b00",
-              color: "#ff6b00",
-              fontSize: "0.9rem",
-              letterSpacing: "0.3em",
+              bottom: "12%",
+              padding: "1.2rem 3.5rem",
+              background: "linear-gradient(135deg, #ff1493 0%, #ff69b4 100%)",
+              border: "none",
+              color: "#ffffff",
+              fontSize: "1rem",
+              fontWeight: 600,
+              letterSpacing: "0.25em",
               cursor: "pointer",
-              fontFamily: "monospace",
+              fontFamily: "var(--font-jp-rounded)",
               overflow: "hidden",
               zIndex: 10,
+              borderRadius: "4px",
+              boxShadow: "0 4px 30px rgba(255,20,147,0.4), 0 0 60px rgba(255,20,147,0.2)",
             }}
           >
             <motion.span
-              animate={{ x: hovered ? 5 : 0 }}
-              transition={{ duration: 0.2 }}
+              animate={{ x: hovered ? 8 : 0 }}
+              transition={{ duration: 0.25 }}
+              style={{ display: "inline-block" }}
             >
-              ENTER →
+               始めよう START →
             </motion.span>
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: hovered ? "0%" : "-100%" }}
-              transition={{ duration: 0.3 }}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                background: "rgba(255,107,0,0.1)",
-                zIndex: -1,
-              }}
-            />
           </motion.button>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.5 }}
+            transition={{ delay: 2 }}
             style={{
               position: "absolute",
               bottom: "8%",
-              color: "rgba(255,107,0,0.4)",
-              fontSize: "0.7rem",
+              color: "#ff69b4",
+              fontSize: "0.75rem",
               letterSpacing: "0.3em",
-              fontFamily: "monospace",
+              fontFamily: "var(--font-jp-rounded)",
+              lineHeight: 1.8,
+              textShadow: "0 0 10px rgba(255,105,180,0.3)",
+              fontWeight: 500,
             }}
           >
-            SCROLL TO EXPLORE
+            スクロールして探索
           </motion.div>
 
           <motion.div
             className="absolute"
             animate={{ rotate: 360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
             style={{
-              width: 800,
-              height: 800,
-              border: "1px solid rgba(255,107,0,0.05)",
+              width: 900,
+              height: 900,
+              border: "1px solid rgba(255,20,147,0.08)",
               borderRadius: "50%",
               pointerEvents: "none",
             }}
@@ -405,11 +563,23 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           <motion.div
             className="absolute"
             animate={{ rotate: -360 }}
-            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
             style={{
-              width: 600,
-              height: 600,
-              border: "1px solid rgba(255,107,0,0.08)",
+              width: 700,
+              height: 700,
+              border: "1px solid rgba(255,105,180,0.1)",
+              borderRadius: "50%",
+              pointerEvents: "none",
+            }}
+          />
+          <motion.div
+            className="absolute"
+            animate={{ rotate: 180 }}
+            transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
+            style={{
+              width: 500,
+              height: 500,
+              border: "1px dashed rgba(255,20,147,0.12)",
               borderRadius: "50%",
               pointerEvents: "none",
             }}
@@ -419,9 +589,9 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.8, duration: 1 }}
+            transition={{ delay: 2, duration: 1.2 }}
             style={{
-              background: "linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.5) 100%)",
+              background: "linear-gradient(180deg, transparent 0%, rgba(10,6,16,0.6) 100%)",
               pointerEvents: "none",
               zIndex: 5,
             }}

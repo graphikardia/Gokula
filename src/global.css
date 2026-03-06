@@ -1,4 +1,6 @@
 @import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=Shippori+Mincho:wght@400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shojumaru&family=Bebas+Neue&family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,7 +13,7 @@
   --text-secondary: rgba(240, 230, 211, 0.6);
   --text-muted: rgba(240, 230, 211, 0.4);
   --border: rgba(255, 107, 0, 0.2);
-  --accent: #ff6b00;
+  --accent: #ff1493;
   --accent-secondary: #c41e3a;
   --accent-tertiary: #00d4aa;
   --card-bg: rgba(255, 107, 0, 0.05);
@@ -20,6 +22,9 @@
   --glass: rgba(255, 107, 0, 0.03);
   --glass-border: rgba(255, 107, 0, 0.1);
   --glow: rgba(255, 107, 0, 0.3);
+  --font-jp: 'Noto Sans JP', 'Noto Serif JP', 'Zen Kaku Gothic New', 'Shippori Mincho', 'M PLUS Rounded 1c', 'Zen Maru Gothic', 'Hiragino Kaku Gothic Pro', 'Yu Gothic', 'Meiryo', sans-serif;
+  --font-jp-serif: 'Noto Serif JP', 'Shippori Mincho', 'Zen Kaku Gothic New', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-jp-rounded: 'M PLUS Rounded 1c', 'Zen Maru Gothic', 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
 }
 
 :root.light {
@@ -131,14 +136,14 @@ img, video { display: block; max-width: 100%; height: auto; }
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #ff6b00 0%, #c41e3a 50%, #00d4aa 100%);
+  background: linear-gradient(135deg, #ff1493 0%, #c41e3a 50%, #00d4aa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #ff6b00 0%, #c41e3a 50%, #00d4aa 100%);
+  background: linear-gradient(135deg, #ff1493 0%, #c41e3a 50%, #00d4aa 100%);
 }
 
 .award-badge {
@@ -230,7 +235,7 @@ img, video { display: block; max-width: 100%; height: auto; }
 
 .border-gradient {
   background: linear-gradient(var(--bg) 0%, var(--bg) 100%) padding-box,
-              linear-gradient(135deg, #ff6b00, #c41e3a, #00d4aa) border-box;
+              linear-gradient(135deg, #ff1493, #c41e3a, #00d4aa) border-box;
   border: 1px solid transparent;
 }
 
@@ -252,6 +257,30 @@ img, video { display: block; max-width: 100%; height: auto; }
 
 .font-display-alt {
   font-family: 'Bebas Neue', sans-serif;
+}
+
+.font-jp {
+  font-family: var(--font-jp);
+}
+
+.font-jp-serif {
+  font-family: var(--font-jp-serif);
+}
+
+.font-jp-rounded {
+  font-family: var(--font-jp-rounded);
+}
+
+.leading-relaxed {
+  line-height: 1.75;
+}
+
+.leading-loose {
+  line-height: 2;
+}
+
+.leading-snug {
+  line-height: 1.375;
 }
 
 @media (max-width: 768px) {

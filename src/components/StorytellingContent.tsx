@@ -26,7 +26,7 @@ const skills = [
   { name: "Meta Business Suite", color: "#0081FB" },
   { name: "Google Ads", color: "#34A853" },
   { name: "Google Analytics", color: "#E37400" },
-  { name: "SEO/AEO/GEO", color: "#ff6b00" },
+  { name: "SEO/AEO/GEO", color: "#ff1493" },
   { name: "HTML/CSS/JS", color: "#F7DF1E" },
   { name: "React.js", color: "#61DAFB" },
   { name: "Three.js", color: "#4353FF" },
@@ -75,7 +75,7 @@ const projects = [
   {
     company: "Graphikardia Clients",
     category: "Healthcare & Wellness",
-    clients: ["Dr. Darshana Reddy", "Dr. Raksha Madhu", "Dr. Mahendra M", "Medella Homoeo Clinic"],
+    clients: ["Dr. Darshana Reddy", "Dr. Raksha Madhu", "Dr. Mahendra M"],
     description: "Full-service digital marketing including social media management, brand strategy, video production, and content creation for healthcare professionals.",
     stats: [
       { value: "93%", label: "Reach Increase" },

@@ -9,7 +9,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-[#ff6b00] uppercase tracking-[0.3em] text-sm"
+          className="text-[#ff1493] uppercase tracking-[0.3em] text-sm"
         >
           Creative Lead & Digital Marketing Expert
         </motion.span>
@@ -20,7 +20,7 @@ export default function Hero() {
           transition={{ delay: 0.3 }}
           className="text-5xl md:text-7xl font-bold mt-6 mb-6"
         >
-          Hi, I'm <span className="text-[#ff6b00]">Geetha</span>
+          Hi, I'm <span className="text-[#ff1493]">Geetha</span>
         </motion.h1>
         
         <motion.p
@@ -54,7 +54,7 @@ export default function Hero() {
         >
           <Link
             to="/case-studies"
-            className="px-8 py-4 bg-[#ff6b00] text-black font-bold rounded-full hover:scale-105 transition-transform"
+            className="px-8 py-4 bg-[#ff1493] text-black font-bold rounded-full hover:scale-105 transition-transform"
           >
             View My Work
           </Link>
@@ -74,7 +74,7 @@ export default function Hero() {
         >
           <a
             href="mailto:graphikardia@gmail.com"
-            className="text-white/40 hover:text-[#ff6b00] transition-colors"
+            className="text-white/40 hover:text-[#ff1493] transition-colors"
             aria-label="Email"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,7 +83,7 @@ export default function Hero() {
           </a>
           <a
             href="tel:+917975594203"
-            className="text-white/40 hover:text-[#ff6b00] transition-colors"
+            className="text-white/40 hover:text-[#ff1493] transition-colors"
             aria-label="Phone"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -94,7 +94,7 @@ export default function Hero() {
             href="https://linkedin.com/in/geetha-gokula-p"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/40 hover:text-[#ff6b00] transition-colors"
+            className="text-white/40 hover:text-[#ff1493] transition-colors"
             aria-label="LinkedIn"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@ export default function Hero() {
             href="https://instagram.com/graphikardia"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/40 hover:text-[#ff6b00] transition-colors"
+            className="text-white/40 hover:text-[#ff1493] transition-colors"
             aria-label="Instagram"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -126,7 +126,7 @@ export default function Hero() {
           transition={{ duration: 2, repeat: Infinity }}
           className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2"
         >
-          <div className="w-1 h-2 bg-[#ff6b00] rounded-full" />
+          <div className="w-1 h-2 bg-[#ff1493] rounded-full" />
         </motion.div>
       </motion.div>
     </section>

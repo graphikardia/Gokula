@@ -26,6 +26,7 @@ export default function App() {
 
   return (
     <SoundProvider>
+      <Cursor />
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" onComplete={() => setLoading(false)} />}
       </AnimatePresence>
@@ -34,7 +35,6 @@ export default function App() {
         <>
           <GlobalBackground />
           <Header />
-          <Cursor />
           <SoundToggle />
           <Noise />
           

@@ -21,7 +21,7 @@ export function CaseStudyHero({ title, category, year, client, image }: CaseStud
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[#ff6b00] uppercase tracking-wider text-sm"
+          className="text-[#ff1493] uppercase tracking-wider text-sm"
         >
           {category}
         </motion.span>
@@ -76,7 +76,7 @@ function Stat({ value, label }: StatProps) {
       viewport={{ once: true }}
       className="text-center"
     >
-      <div className="text-5xl md:text-6xl font-bold text-[#ff6b00]">{value}</div>
+      <div className="text-5xl md:text-6xl font-bold text-[#ff1493]">{value}</div>
       <div className="text-white/60 mt-2">{label}</div>
     </motion.div>
   )
@@ -122,7 +122,7 @@ export function ChallengeSolution({ challenge, solution }: ChallengeSolutionProp
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-[#ff6b00] uppercase tracking-wider text-sm">The Challenge</span>
+          <span className="text-[#ff1493] uppercase tracking-wider text-sm">The Challenge</span>
           <h3 className="text-2xl font-bold mt-4 mb-6">What We Faced</h3>
           <p className="text-white/70 leading-relaxed">{challenge}</p>
         </motion.div>
@@ -132,7 +132,7 @@ export function ChallengeSolution({ challenge, solution }: ChallengeSolutionProp
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-[#ff6b00] uppercase tracking-wider text-sm">Our Solution</span>
+          <span className="text-[#ff1493] uppercase tracking-wider text-sm">Our Solution</span>
           <h3 className="text-2xl font-bold mt-4 mb-6">How We Solved It</h3>
           <p className="text-white/70 leading-relaxed">{solution}</p>
         </motion.div>
@@ -151,7 +151,7 @@ interface CaseStudyCTAProps {
 export function CaseStudyCTA({ title, subtitle, buttonText, buttonLink }: CaseStudyCTAProps) {
   return (
     <section className="py-32 px-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#ff6b00]/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#ff1493]/20 to-transparent" />
       
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.h2
@@ -178,7 +178,7 @@ export function CaseStudyCTA({ title, subtitle, buttonText, buttonLink }: CaseSt
         >
           <Link
             to={buttonLink}
-            className="inline-block px-10 py-4 bg-[#ff6b00] text-black font-bold rounded-full hover:scale-105 transition-transform"
+            className="inline-block px-10 py-4 bg-[#ff1493] text-black font-bold rounded-full hover:scale-105 transition-transform"
           >
             {buttonText}
           </Link>
@@ -193,13 +193,13 @@ export function CaseStudyNavigation({ prev, next }: { prev?: string; next?: stri
     <section className="py-16 px-6 border-t border-white/10">
       <div className="max-w-6xl mx-auto flex justify-between">
         {prev ? (
-          <Link to={prev} className="text-white/60 hover:text-[#ff6b00] transition-colors">
+          <Link to={prev} className="text-white/60 hover:text-[#ff1493] transition-colors">
             ← Previous Project
           </Link>
         ) : <div />}
         
         {next ? (
-          <Link to={next} className="text-white/60 hover:text-[#ff6b00] transition-colors">
+          <Link to={next} className="text-white/60 hover:text-[#ff1493] transition-colors">
             Next Project →
           </Link>
         ) : <div />}
